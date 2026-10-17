@@ -17,7 +17,7 @@ function Home() {
         <h1>
           Hi, I'm{" "}
           <span>
-            Shelema Ageri
+           <b> <i> Shelema Ageri</i></b>
           </span>
         </h1>
 
@@ -26,7 +26,7 @@ function Home() {
         </h2>
 
         <p>
-          I am a third-year Computer Science student at Haramaya
+          I am a fourth-year Computer Science student at Haramaya
           University passionate about building modern web applications
           using React, Node.js, Express.js and MongoDB.
           I develop full-stack applications with clean design,
