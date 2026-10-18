@@ -11,7 +11,7 @@
 
 ## 🌟 Overview
 
-This repository contains the source code for the personal portfolio of **Shelema Ageri**. The portfolio is engineered with modern frontend best practices, interactive motion design, glassmorphism aesthetics, and clean component architecture.
+This repository contains the source code for the personal portfolio of **Shelema Ageri**. The portfolio is developed with modern frontend best practices, interactive motion design, glassmorphism aesthetics, and clean component architecture.
 
 ### Key Sections:
 - **Hero**: Engaging greeting, quick stats bar, profile showcase with floating tech chips, and direct CV download.

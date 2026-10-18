@@ -11,10 +11,10 @@ import {
 function About() {
   const highlights = [
     "BSc Computer Science (Senior Undergraduate)",
-    "Full-Stack MERN Stack Architecture",
+    "Full-Stack MERN Development (React, Node, Express, MongoDB)",
     "Chapa Payment API & Webhook Processing",
     "Secure JWT Authentication & Password Hashing",
-    "RESTful API Design & MongoDB Schema Modeling",
+    "RESTful API Architecture & Schema Design",
     "Git Collaboration & Postman API Verification"
   ];
 
@@ -23,13 +23,13 @@ function About() {
       icon: <FaGraduationCap />,
       title: "Academic Background",
       detail: "BSc in Computer Science",
-      sub: "Haramaya University (4th Year Senior, Expected 2025/2026)",
+      sub: "Haramaya University (4th Year Senior)",
       badge: "Degree Candidate"
     },
     {
       icon: <FaCode />,
-      title: "Core Specialization",
-      detail: "Full-Stack Web Engineering",
+      title: "Full-Stack Development",
+      detail: "Web Application Development",
       sub: "React.js, Node.js, Express.js, MongoDB",
       badge: "MERN Stack"
     },
@@ -42,10 +42,10 @@ function About() {
     },
     {
       icon: <FaLaptopCode />,
-      title: "Engineering Workflow",
+      title: "Development Workflow",
       detail: "Modern Tooling & Standards",
       sub: "Git, GitHub, Postman, Clean Code & Responsive Design",
-      badge: "Industry Standards"
+      badge: "Best Practices"
     }
   ];
 
@@ -65,7 +65,7 @@ function About() {
       </div>
 
       <div className="about-container">
-        {/* Left Column: Story */}
+        {/* Left Column: Story with optimal text alignment */}
         <motion.div
           className="about-story glass-card"
           initial={{ opacity: 0, y: 20 }}
@@ -75,18 +75,18 @@ function About() {
         >
           <div className="story-header">
             <h3>Shelema Ageri</h3>
-            <span className="story-tag">Software Engineer</span>
+            <span className="story-tag">Full Stack Developer</span>
           </div>
 
           <p className="story-paragraph">
             I am a fourth-year <strong>Computer Science student at Haramaya University</strong> with 
-            a disciplined foundation in software engineering, algorithms, database systems, and web architecture. 
-            My primary technical focus is full-stack web engineering using the 
+            a disciplined foundation in software development, algorithms, database systems, and web architecture. 
+            My primary technical focus is full-stack web development using the 
             <strong> MERN stack (MongoDB, Express.js, React, Node.js)</strong>.
           </p>
 
           <p className="story-paragraph">
-            Throughout my academic career, I have applied engineering theory to real-world software projects. 
+            Throughout my academic career, I have applied computer science principles to real-world software projects. 
             Notably, I designed and built a comprehensive <strong>Tech & Electronics E-Commerce Platform</strong>, 
             incorporating user authentication, inventory management, shopping carts, order workflows, and online payment 
             processing integrated with the <strong>Chapa Payment Gateway</strong>.

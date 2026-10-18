@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import "./Navbar.css";
 import { FaBars, FaTimes, FaFileAlt } from "react-icons/fa";
-import profile from "../../assets/Profile.jpg";
+import profile from "../../assets/Profile.png";
 
 function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);

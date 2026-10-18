@@ -4,22 +4,26 @@
   left: 0;
   width: 100%;
   z-index: 1000;
-  padding: 18px 0;
-  transition: all 0.35s ease;
-  background: transparent;
+  padding: 16px 0;
+  transition: all 0.3s ease;
+  background: rgba(15, 23, 42, 0.82);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(148, 163, 184, 0.15);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
 }
 
 .navbar-wrapper.scrolled {
   padding: 12px 0;
-  background: rgba(11, 19, 41, 0.85);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border-bottom: 1px solid var(--border-subtle);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  background: rgba(7, 12, 24, 0.96);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(56, 189, 248, 0.22);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6), 0 1px 0 rgba(56, 189, 248, 0.12);
 }
 
 .navbar {
-  max-width: 1240px;
+  max-width: 1200px;
   margin: 0 auto;
   padding: 0 24px;
   display: flex;
@@ -31,31 +35,27 @@
 .logo {
   display: flex;
   align-items: center;
-  font-size: 22px;
+  font-size: 20px;
   font-weight: 800;
   letter-spacing: -0.5px;
-  color: var(--text-main);
-  transition: transform 0.25s ease;
+  color: #ffffff;
+  transition: transform 0.2s ease;
 }
 
 .logo:hover {
-  transform: scale(1.03);
+  transform: scale(1.02);
 }
 
 .logo-avatar {
-  width: 32px;
-  height: 32px;
+  width: 34px;
+  height: 34px;
   border-radius: 50%;
   object-fit: cover;
+  background: #1e293b;
   border: 2px solid var(--primary);
   margin-right: 10px;
   flex-shrink: 0;
-}
-
-.logo-bracket {
-  color: var(--primary);
-  font-family: var(--font-mono);
-  font-weight: 600;
+  box-shadow: 0 2px 8px rgba(56, 189, 248, 0.25);
 }
 
 .logo-text {
@@ -64,33 +64,31 @@
 }
 
 .logo-dot {
-  color: var(--secondary);
+  color: var(--primary);
 }
 
 .logo-highlight {
-  background: linear-gradient(135deg, var(--primary) 0%, #818cf8 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  color: var(--primary);
 }
 
 /* Nav Actions Container */
 .nav-actions {
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 18px;
 }
 
 /* Nav Links */
 .nav-links {
   display: flex;
   align-items: center;
-  gap: 32px;
+  gap: 28px;
   list-style: none;
 }
 
 .nav-links a {
   position: relative;
-  font-size: 15px;
+  font-size: 14px;
   font-weight: 500;
   color: var(--text-sub);
   padding: 6px 0;
@@ -104,14 +102,14 @@
   left: 0;
   width: 0%;
   height: 2px;
-  background: linear-gradient(90deg, var(--primary), var(--secondary));
-  transition: width 0.3s ease;
+  background: var(--primary);
+  transition: width 0.25s ease;
   border-radius: 2px;
 }
 
 .nav-links a:hover,
 .nav-links a.active {
-  color: var(--primary);
+  color: #ffffff;
 }
 
 .nav-links a.active::after,
@@ -120,9 +118,10 @@
 }
 
 .desktop-cv-btn {
-  padding: 8px 18px;
+  padding: 8px 16px;
   font-size: 13px;
   gap: 6px;
+  border-radius: var(--radius-sm);
 }
 
 .mobile-cv-item {
@@ -132,11 +131,12 @@
 /* Menu Toggle Button */
 .menu-toggle {
   display: none;
-  background: rgba(30, 41, 59, 0.6);
+  background: rgba(30, 41, 59, 0.7);
   border: 1px solid var(--border-subtle);
   color: var(--text-main);
-  font-size: 20px;
-  padding: 8px;
+  font-size: 18px;
+  width: 40px;
+  height: 40px;
   border-radius: 10px;
   align-items: center;
   justify-content: center;
@@ -161,42 +161,42 @@
 
   .nav-links {
     position: fixed;
-    top: 70px;
+    top: 68px;
     left: 0;
     right: 0;
-    background: rgba(11, 19, 41, 0.98);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border-bottom: 1px solid var(--border-subtle);
+    background: rgba(8, 14, 28, 0.98);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border-bottom: 1px solid rgba(56, 189, 248, 0.2);
     flex-direction: column;
-    padding: 30px 24px;
-    gap: 20px;
+    padding: 24px;
+    gap: 16px;
     transform: translateY(-150%);
     opacity: 0;
     pointer-events: none;
-    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   .nav-links.active {
     transform: translateY(0);
     opacity: 1;
     pointer-events: auto;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.7);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);
   }
 
   .nav-links a {
-    font-size: 17px;
+    font-size: 16px;
     font-weight: 600;
   }
 
   .mobile-cv-item {
     display: block;
     width: 100%;
-    margin-top: 10px;
+    margin-top: 8px;
   }
 
   .nav-cv-btn {
     width: 100%;
-    padding: 12px;
+    padding: 11px;
   }
 }

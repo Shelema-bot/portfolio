@@ -5,10 +5,9 @@ import {
   FaEnvelope, 
   FaPhoneAlt, 
   FaArrowRight, 
-  FaFileDownload,
-  FaCheckCircle
+  FaFileDownload
 } from "react-icons/fa";
-import profile from "../../assets/Profile.jpg";
+import profile from "../../assets/Profile.png";
 
 function Home() {
   const highlights = [
@@ -21,17 +20,17 @@ function Home() {
   return (
     <section className="home" id="home">
       <div className="home-container">
-        {/* Left Column: Formal Bio & CTAs */}
+        {/* Left Column: Formal Bio & CTAs with Left Alignment */}
         <motion.div
           className="home-content"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, ease: "easeOut" }}
         >
-          {/* Professional Status Badge */}
+          {/* Status Badge */}
           <div className="status-badge">
             <span className="status-indicator"></span>
-            <span>Available for Software Engineering Roles</span>
+            <span>Available for Full Stack Developer Roles</span>
           </div>
 
           <h1 className="home-name">
@@ -39,14 +38,14 @@ function Home() {
           </h1>
 
           <h2 className="home-title-role">
-            Full-Stack Software Engineer
+            Full Stack Software Developer
           </h2>
 
           <p className="home-summary">
             Computer Science senior at <strong>Haramaya University</strong> specializing in 
             full-stack web development with the <strong>MERN stack</strong> (MongoDB, Express.js, 
             React, Node.js). Experienced in designing RESTful APIs, scalable database architectures, 
-            and delivering high-performance, secure web applications with clean code standards.
+            and delivering high-performance, responsive web applications with clean code standards.
           </p>
 
           <div className="home-actions">
@@ -97,22 +96,24 @@ function Home() {
           </div>
         </motion.div>
 
-        {/* Right Column: Formal Portrait */}
+        {/* Right Column: Transparent Profile Cutout with Subtle Illuminated Framing */}
         <motion.div
           className="home-portrait-wrapper"
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.6, delay: 0.15, ease: "easeOut" }}
         >
-          <div className="portrait-frame">
-            <img
-              src={profile}
-              alt="Shelema Ageri - Full Stack Software Engineer"
-              className="portrait-image"
-            />
+          <div className="portrait-circle-card">
+            <div className="portrait-avatar-halo">
+              <img
+                src={profile}
+                alt="Shelema Ageri - Full Stack Software Developer"
+                className="portrait-transparent-img"
+              />
+            </div>
             <div className="portrait-caption">
               <span className="caption-name">Shelema Ageri</span>
-              <span className="caption-role">Computer Science Senior & MERN Developer</span>
+              <span className="caption-role">Computer Science Senior & Full Stack Developer</span>
             </div>
           </div>
         </motion.div>
