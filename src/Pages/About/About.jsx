@@ -4,18 +4,18 @@ import {
   FaGraduationCap,
   FaCode,
   FaShieldAlt,
-  FaVideo,
+  FaLaptopCode,
   FaCheckCircle
 } from "react-icons/fa";
 
 function About() {
   const highlights = [
-    "Full-Stack MERN Architecture",
-    "BSc Computer Science (4th Year)",
-    "Chapa Payment & Webhook Integration",
-    "Secure JWT Authentication & Authorization",
-    "RESTful API Design & MongoDB Modeling",
-    "Content Creation & Video Editing"
+    "BSc Computer Science (Senior Undergraduate)",
+    "Full-Stack MERN Stack Architecture",
+    "Chapa Payment API & Webhook Processing",
+    "Secure JWT Authentication & Password Hashing",
+    "RESTful API Design & MongoDB Schema Modeling",
+    "Git Collaboration & Postman API Verification"
   ];
 
   const infoCards = [
@@ -23,29 +23,29 @@ function About() {
       icon: <FaGraduationCap />,
       title: "Academic Background",
       detail: "BSc in Computer Science",
-      sub: "Haramaya University (4th Year Senior)",
-      badge: "Top >75% Academic Standing"
+      sub: "Haramaya University (4th Year Senior, Expected 2025/2026)",
+      badge: "Degree Candidate"
     },
     {
       icon: <FaCode />,
-      title: "MERN Stack Specialist",
+      title: "Core Specialization",
       detail: "Full-Stack Web Engineering",
-      sub: "React 19, Node.js, Express, MongoDB",
-      badge: "Production Ready"
+      sub: "React.js, Node.js, Express.js, MongoDB",
+      badge: "MERN Stack"
     },
     {
       icon: <FaShieldAlt />,
-      title: "Backend & Security",
-      detail: "REST APIs & Cloud Architecture",
-      sub: "JWT Auth, Bcrypt, Middleware, Chapa Gateway",
-      badge: "Secure Architecture"
+      title: "Backend & Systems",
+      detail: "RESTful APIs & Security",
+      sub: "JWT Authentication, Middleware, Chapa Gateway",
+      badge: "Production Ready"
     },
     {
-      icon: <FaVideo />,
-      title: "Creative & Media",
-      detail: "Video Editing & Content",
-      sub: "Technical visual storytelling & UI design",
-      badge: "Creative Mindset"
+      icon: <FaLaptopCode />,
+      title: "Engineering Workflow",
+      detail: "Modern Tooling & Standards",
+      sub: "Git, GitHub, Postman, Clean Code & Responsive Design",
+      badge: "Industry Standards"
     }
   ];
 
@@ -54,14 +54,13 @@ function About() {
       <div className="section-header">
         <div className="section-badge">
           <span className="dot"></span>
-          <span>Discover My Journey</span>
+          <span>Background</span>
         </div>
         <h2 className="section-title">
-          Who I Am & <span>What I Build</span>
+          About <span>Me</span>
         </h2>
         <p className="section-desc">
-          Get to know my educational background, engineering philosophy, 
-          and passion for crafting complete web solutions.
+          Education, technical foundations, and full-stack software development experience.
         </p>
       </div>
 
@@ -69,35 +68,33 @@ function About() {
         {/* Left Column: Story */}
         <motion.div
           className="about-story glass-card"
-          initial={{ opacity: 0, x: -40 }}
-          whileInView={{ opacity: 1, x: 0 }}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.7 }}
+          transition={{ duration: 0.5 }}
         >
           <div className="story-header">
             <h3>Shelema Ageri</h3>
-            <span className="story-tag">Full-Stack MERN Developer</span>
+            <span className="story-tag">Software Engineer</span>
           </div>
 
           <p className="story-paragraph">
             I am a fourth-year <strong>Computer Science student at Haramaya University</strong> with 
-            an ardent passion for full-stack software development and scalable web engineering. 
-            Throughout my academic journey, I have cultivated a deep foundation in data structures, 
-            algorithms, database systems, and modern software design.
+            a disciplined foundation in software engineering, algorithms, database systems, and web architecture. 
+            My primary technical focus is full-stack web engineering using the 
+            <strong> MERN stack (MongoDB, Express.js, React, Node.js)</strong>.
           </p>
 
           <p className="story-paragraph">
-            My primary expertise lies in the <strong>MERN stack (MongoDB, Express.js, React, Node.js)</strong>. 
-            I love transforming complex concepts into high-impact, user-friendly digital products. 
-            I architected and engineered a comprehensive <strong>Tech & Electronics E-Commerce Platform</strong> featuring 
-            secure JWT authentication, interactive shopping carts, inventory management, Chapa online payment integration, 
-            and a complete administrative control panel.
+            Throughout my academic career, I have applied engineering theory to real-world software projects. 
+            Notably, I designed and built a comprehensive <strong>Tech & Electronics E-Commerce Platform</strong>, 
+            incorporating user authentication, inventory management, shopping carts, order workflows, and online payment 
+            processing integrated with the <strong>Chapa Payment Gateway</strong>.
           </p>
 
           <p className="story-paragraph">
-            Beyond coding, I have a creative edge in video editing and multimedia production, 
-            allowing me to approach software development with both rigorous logical precision 
-            and keen aesthetic sensibility.
+            I prioritize writing readable, maintainable code, developing secure RESTful APIs, and building 
+            responsive user interfaces that offer consistent performance across devices.
           </p>
 
           {/* Highlights Checklist */}
@@ -117,10 +114,10 @@ function About() {
             <motion.div
               key={index}
               className="about-info-card glass-card"
-              initial={{ opacity: 0, x: 40 }}
-              whileInView={{ opacity: 1, x: 0 }}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: index * 0.12 }}
+              transition={{ duration: 0.4, delay: index * 0.1 }}
             >
               <div className="info-icon-box">
                 {card.icon}

@@ -26,10 +26,10 @@ function Projects() {
       category: "fullstack",
       featured: true,
       image: projectImage,
-      label: "Flagship MERN Project",
-      tagline: "End-to-End E-Commerce System with Online Payment & Admin Control",
+      label: "Full-Stack MERN Project",
+      tagline: "End-to-End Online Store with Chapa Payment Processing & Admin Control",
       description:
-        "A full-stack commercial web application built for purchasing technology and electronics. Features an intuitive customer storefront, dynamic shopping cart, order tracking, and automated checkout integrated with the Chapa payment gateway. Includes a comprehensive admin control panel to manage product inventory, categories, customer orders, and revenue metrics.",
+        "A full-stack commercial web application engineered for purchasing technology products and consumer electronics. Features an intuitive customer storefront, dynamic shopping cart, order tracking, and automated checkout integrated with the Chapa payment gateway. Includes a comprehensive admin control panel to manage product inventory, categories, customer orders, and revenue metrics.",
       technologies: ["React", "Node.js", "Express.js", "MongoDB", "JWT", "Chapa API", "Bcrypt"],
       features: [
         { icon: <FaShoppingCart />, text: "Shopping cart & order lifecycle workflow" },
@@ -39,7 +39,7 @@ function Projects() {
       ],
       githubUrl: "https://github.com/Shelema-bot",
       demoUrl: "https://github.com/Shelema-bot",
-      demoNote: "Production demo and code available on GitHub. Full deployment pipeline configured."
+      demoNote: "Source code and architecture documentation available on GitHub."
     },
     {
       id: "campus-connect",
@@ -67,11 +67,11 @@ function Projects() {
       label: "Productivity Web App",
       tagline: "Interactive Kanban Board with Real-Time State Progression",
       description:
-        "A clean task and project management application featuring interactive Kanban swimlanes, drag-and-drop cards, sprint milestones, priority indicators, and responsive mobile-first controls.",
-      technologies: ["React", "Framer Motion", "JavaScript", "CSS3", "Local Storage"],
+        "A task and project management application featuring interactive Kanban swimlanes, state progression, sprint milestones, priority indicators, and responsive mobile-first controls.",
+      technologies: ["React", "Framer Motion", "JavaScript (ES6+)", "CSS3", "Local Storage"],
       features: [
         { icon: <FaTasks />, text: "Interactive task columns (Todo, In Progress, Review, Completed)" },
-        { icon: <FaInfoCircle />, text: "Smooth animations, state persistence & priority filtering" },
+        { icon: <FaInfoCircle />, text: "State persistence, smooth drag animations & priority filtering" },
       ],
       githubUrl: "https://github.com/Shelema-bot",
       demoUrl: "https://github.com/Shelema-bot",
@@ -93,7 +93,7 @@ function Projects() {
       ],
       githubUrl: "https://github.com/Shelema-bot",
       demoUrl: "https://github.com/Shelema-bot",
-      demoNote: "Includes complete Postman documentation and environment variables setup."
+      demoNote: "Includes complete Postman documentation and environment configuration."
     }
   ];
 
@@ -112,7 +112,7 @@ function Projects() {
           Featured <span>Projects</span>
         </h2>
         <p className="section-desc">
-          Real-world applications engineered with modern technologies, 
+          Production-grade applications engineered with modern technologies, 
           clean architecture, and attention to performance and security.
         </p>
       </div>
@@ -143,10 +143,10 @@ function Projects() {
               layout
               key={project.id}
               className={`project-showcase-card glass-card ${project.featured ? "featured" : ""}`}
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: 20 }}
-              transition={{ duration: 0.4 }}
+              exit={{ opacity: 0, y: 10 }}
+              transition={{ duration: 0.3 }}
             >
               {project.image && (
                 <div className="project-media">
@@ -194,14 +194,14 @@ function Projects() {
                     rel="noopener noreferrer"
                     className="btn btn-primary project-action-btn"
                   >
-                    <FaGithub /> View Code
+                    <FaGithub /> Source Code
                   </a>
 
                   <button
                     onClick={() => setActiveModalProject(project)}
                     className="btn btn-secondary project-action-btn"
                   >
-                    <FaExternalLinkAlt /> Live Demo & Details
+                    <FaExternalLinkAlt /> Architecture & Details
                   </button>
                 </div>
               </div>
@@ -216,9 +216,9 @@ function Projects() {
           <div className="project-modal-backdrop" onClick={() => setActiveModalProject(null)}>
             <motion.div
               className="project-modal glass-card"
-              initial={{ opacity: 0, scale: 0.9, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.9, y: 20 }}
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
               onClick={(e) => e.stopPropagation()}
             >
               <button
@@ -247,7 +247,7 @@ function Projects() {
                 </div>
 
                 <div className="modal-tech-stack">
-                  <h4>Tech Stack</h4>
+                  <h4>Technology Stack</h4>
                   <div className="tech-badge-container">
                     {activeModalProject.technologies.map((t, i) => (
                       <span key={i} className="tech-pill">{t}</span>
@@ -268,7 +268,7 @@ function Projects() {
                   rel="noopener noreferrer"
                   className="btn btn-primary"
                 >
-                  <FaGithub /> Inspect on GitHub
+                  <FaGithub /> View on GitHub
                 </a>
                 <button
                   className="btn btn-secondary"

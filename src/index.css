@@ -4,40 +4,35 @@
   --font-main: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
 
-  /* Color Palette */
-  --bg-dark: #080d1a;
-  --bg-primary: #0b1329;
-  --bg-secondary: #0f172a;
-  --bg-card: rgba(17, 26, 51, 0.75);
-  --bg-card-hover: rgba(30, 41, 75, 0.85);
+  /* Refined Professional Color Palette */
+  --bg-dark: #0a0f1d;
+  --bg-primary: #0f172a;
+  --bg-secondary: #111c35;
+  --bg-card: rgba(17, 26, 47, 0.75);
+  --bg-card-hover: rgba(23, 35, 64, 0.9);
 
   --primary: #38bdf8;
   --primary-rgb: 56, 189, 248;
-  --primary-glow: rgba(56, 189, 248, 0.25);
+  --primary-glow: rgba(56, 189, 248, 0.15);
   
-  --secondary: #6366f1;
-  --secondary-glow: rgba(99, 102, 241, 0.2);
-
+  --secondary: #3b82f6;
   --accent-green: #10b981;
-  --accent-amber: #f59e0b;
-  --accent-purple: #a855f7;
 
   --text-main: #f8fafc;
   --text-sub: #cbd5e1;
   --text-muted: #94a3b8;
   --text-dim: #64748b;
 
-  --border-subtle: rgba(148, 163, 184, 0.12);
-  --border-focus: rgba(56, 189, 248, 0.5);
+  --border-subtle: rgba(148, 163, 184, 0.15);
+  --border-focus: rgba(56, 189, 248, 0.45);
 
-  --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.3);
-  --shadow-md: 0 10px 30px rgba(0, 0, 0, 0.4);
-  --shadow-lg: 0 20px 50px rgba(0, 0, 0, 0.6);
-  --shadow-glow: 0 0 35px rgba(56, 189, 248, 0.25);
+  --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.25);
+  --shadow-md: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+  --shadow-lg: 0 20px 40px -15px rgba(0, 0, 0, 0.7);
 
   --radius-sm: 8px;
-  --radius-md: 14px;
-  --radius-lg: 22px;
+  --radius-md: 12px;
+  --radius-lg: 18px;
   --radius-full: 9999px;
 }
 
@@ -56,10 +51,9 @@ body {
   font-family: var(--font-main);
   background-color: var(--bg-dark);
   background-image: 
-    radial-gradient(at 15% 15%, rgba(56, 189, 248, 0.08) 0px, transparent 45%),
-    radial-gradient(at 85% 85%, rgba(99, 102, 241, 0.08) 0px, transparent 45%),
-    radial-gradient(at 50% 50%, rgba(15, 23, 42, 0.95) 0%, #080d1a 100%);
-  background-attachment: fixed;
+    radial-gradient(at 10% 10%, rgba(56, 189, 248, 0.04) 0px, transparent 40%),
+    radial-gradient(at 90% 90%, rgba(59, 130, 246, 0.04) 0px, transparent 40%),
+    #0a0f1d;
   color: var(--text-main);
   line-height: 1.6;
   overflow-x: hidden;
@@ -69,7 +63,7 @@ body {
 
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
-  width: 10px;
+  width: 9px;
 }
 
 ::-webkit-scrollbar-track {
@@ -83,7 +77,7 @@ body {
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--primary);
+  background: #334155;
 }
 
 /* Selection */
@@ -107,8 +101,8 @@ button {
 /* Global Section Utility Classes */
 .section-header {
   text-align: center;
-  max-width: 720px;
-  margin: 0 auto 55px;
+  max-width: 680px;
+  margin: 0 auto 50px;
   position: relative;
 }
 
@@ -116,16 +110,16 @@ button {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 700;
-  letter-spacing: 2px;
+  letter-spacing: 1.5px;
   text-transform: uppercase;
   color: var(--primary);
   background: rgba(56, 189, 248, 0.08);
   border: 1px solid rgba(56, 189, 248, 0.2);
-  padding: 6px 16px;
+  padding: 5px 14px;
   border-radius: var(--radius-full);
-  margin-bottom: 16px;
+  margin-bottom: 14px;
 }
 
 .section-badge .dot {
@@ -133,26 +127,23 @@ button {
   height: 6px;
   border-radius: 50%;
   background: var(--primary);
-  box-shadow: 0 0 10px var(--primary);
 }
 
 .section-title {
-  font-size: clamp(32px, 5vw, 44px);
+  font-size: clamp(30px, 4.5vw, 40px);
   font-weight: 800;
   letter-spacing: -0.02em;
-  color: var(--text-main);
-  margin-bottom: 16px;
+  color: #ffffff;
+  margin-bottom: 14px;
   line-height: 1.2;
 }
 
 .section-title span {
-  background: linear-gradient(135deg, var(--primary) 0%, #818cf8 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  color: var(--primary);
 }
 
 .section-desc {
-  font-size: 16px;
+  font-size: 15px;
   color: var(--text-muted);
   line-height: 1.7;
 }
@@ -160,17 +151,17 @@ button {
 /* Glassmorphism Card Style */
 .glass-card {
   background: var(--bg-card);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-md);
-  transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: var(--shadow-sm);
+  transition: all 0.3s ease;
 }
 
 .glass-card:hover {
   border-color: var(--border-focus);
-  box-shadow: var(--shadow-glow);
+  background: var(--bg-card-hover);
 }
 
 /* Shared Button System */
@@ -178,39 +169,39 @@ button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
-  padding: 13px 26px;
-  font-size: 15px;
+  gap: 8px;
+  padding: 12px 24px;
+  font-size: 14px;
   font-weight: 600;
-  border-radius: var(--radius-full);
-  transition: all 0.3s ease;
+  border-radius: var(--radius-md);
+  transition: all 0.25s ease;
   white-space: nowrap;
 }
 
 .btn-primary {
-  background: linear-gradient(135deg, #38bdf8 0%, #2563eb 100%);
+  background: #38bdf8;
   color: #080d1a;
   font-weight: 700;
-  box-shadow: 0 4px 18px rgba(56, 189, 248, 0.35);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid #38bdf8;
+  box-shadow: 0 4px 14px rgba(56, 189, 248, 0.25);
 }
 
 .btn-primary:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 8px 25px rgba(56, 189, 248, 0.5);
-  filter: brightness(1.1);
+  background: #7dd3fc;
+  border-color: #7dd3fc;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(56, 189, 248, 0.35);
 }
 
 .btn-secondary {
-  background: rgba(30, 41, 59, 0.7);
+  background: rgba(30, 41, 59, 0.6);
   color: var(--text-main);
-  border: 1px solid rgba(148, 163, 184, 0.25);
-  backdrop-filter: blur(8px);
+  border: 1px solid rgba(148, 163, 184, 0.2);
 }
 
 .btn-secondary:hover {
-  transform: translateY(-3px);
+  transform: translateY(-2px);
   border-color: var(--primary);
   color: var(--primary);
-  background: rgba(56, 189, 248, 0.1);
+  background: rgba(30, 41, 59, 0.9);
 }
