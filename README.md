@@ -69,13 +69,23 @@ This repository contains the source code for the personal portfolio of **Shelema
 
 ---
 
-## 🌐 Deployment
+## 🌐 Deployment Options
 
-### Automated GitHub Pages (CI/CD)
-The project includes a GitHub Actions workflow located at `.github/workflows/deploy.yml`. Every commit pushed to the `main` branch automatically triggers a production build and deploys the site to GitHub Pages:
+### 1. Vercel (Recommended)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/Shelema-bot/portfolio)
+- Includes optimized [vercel.json](file:///c:/Users/negie/OneDrive/Desktop/mywebsite/portfolio/vercel.json) with SPA rewrites and Vite framework configuration.
+- To deploy: Click the button above or import `Shelema-bot/portfolio` at [vercel.com/new](https://vercel.com/new).
+
+### 2. Render
+[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/Shelema-bot/portfolio)
+- Includes [render.yaml](file:///c:/Users/negie/OneDrive/Desktop/mywebsite/portfolio/render.yaml) blueprint specification for automated static site deployment.
+- To deploy: Click the button above or create a **New Static Site** at [dashboard.render.com](https://dashboard.render.com).
+
+### 3. Automated GitHub Pages (CI/CD)
+The project includes a GitHub Actions workflow located at [.github/workflows/deploy.yml](file:///c:/Users/negie/OneDrive/Desktop/mywebsite/portfolio/.github/workflows/deploy.yml). Every commit pushed to `main` automatically triggers a build and deploys to GitHub Pages:
 - **Live URL**: [https://shelema-bot.github.io/portfolio/](https://shelema-bot.github.io/portfolio/)
 
-### Manual Deployment via gh-pages
+### 4. Manual Deployment via gh-pages
 ```bash
 npm run deploy
 ```
