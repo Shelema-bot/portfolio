@@ -1,48 +1,25 @@
-import Navbar from "./components/Navbar/Navbar";
+import Navbar from "./Components/Navbar/Navbar";
+import Home from "./Pages/Home/Home";
+import About from "./Pages/About/About";
+import Skills from "./Pages/Skills/Skills";
+import Projects from "./Pages/Projects/Projects";
+import Contact from "./Pages/Contact/Contact";
+import Footer from "./Components/Footer/Footer";
 
-import Home from "./pages/Home/Home";
-
-import About from "./pages/About/About";
-
-import Skills from "./pages/Skills/Skills";
-
-import Projects from "./pages/Projects/Projects";
-
-import Contact from "./pages/Contact/Contact";
-
-import Footer from "./components/Footer/Footer";
-
-
-
-function App(){
-
-
-return(
-
-<>
-
-<Navbar/>
-
-<Home/>
-
-<About/>
-
-<Skills/>
-
-<Projects/>
-
-<Contact/>
-
-<Footer/>
-
-
-</>
-
-
-)
-
-
+function App() {
+  return (
+    <div className="portfolio-app">
+      <Navbar />
+      <main>
+        <Home />
+        <About />
+        <Skills />
+        <Projects />
+        <Contact />
+      </main>
+      <Footer />
+    </div>
+  );
 }
-
 
 export default App;
