@@ -1,9 +1,26 @@
 .footer {
-  border-top: 1px solid rgba(56, 189, 248, 0.2);
-  background: #020617;
-  padding: 60px 24px 28px;
   position: relative;
-  box-shadow: 0 -12px 30px rgba(0, 0, 0, 0.5);
+  /* Distinct deep midnight carbon background with radial top glow */
+  background-color: #030611;
+  background-image: 
+    radial-gradient(ellipse at 50% 0%, rgba(56, 189, 248, 0.1) 0%, transparent 70%),
+    linear-gradient(180deg, #050b18 0%, #02040a 100%);
+  border-top: 1px solid rgba(56, 189, 248, 0.25);
+  padding: 65px 24px 30px;
+  box-shadow: 0 -15px 40px rgba(0, 0, 0, 0.7);
+  overflow: hidden;
+}
+
+/* Glowing top accent stripe */
+.footer::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #38bdf8 20%, #60a5fa 50%, #38bdf8 80%, transparent);
+  box-shadow: 0 0 16px rgba(56, 189, 248, 0.8);
 }
 
 .footer-top {
@@ -62,10 +79,10 @@
   color: #34d399;
   font-weight: 600;
   background: rgba(16, 185, 129, 0.08);
-  padding: 4px 12px;
+  padding: 5px 14px;
   border-radius: var(--radius-full);
   width: fit-content;
-  border: 1px solid rgba(16, 185, 129, 0.2);
+  border: 1px solid rgba(16, 185, 129, 0.25);
 }
 
 .pulse-dot {
