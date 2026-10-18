@@ -70,7 +70,7 @@ function Navbar() {
             ))}
             <li className="mobile-cv-item">
               <a
-                href="/Shelema_Ageri_CV.pdf"
+                href="./Shelema_Ageri_CV.pdf"
                 download="Shelema_Ageri_CV.pdf"
                 className="btn btn-primary nav-cv-btn"
                 onClick={() => setMenuOpen(false)}
@@ -81,7 +81,7 @@ function Navbar() {
           </ul>
 
           <a
-            href="/Shelema_Ageri_CV.pdf"
+            href="./Shelema_Ageri_CV.pdf"
             download="Shelema_Ageri_CV.pdf"
             className="btn btn-secondary desktop-cv-btn"
           >

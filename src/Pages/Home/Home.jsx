@@ -58,7 +58,7 @@ function Home() {
             </a>
 
             <a
-              href="/Shelema_Ageri_CV.pdf"
+              href="./Shelema_Ageri_CV.pdf"
               download="Shelema_Ageri_CV.pdf"
               className="btn btn-secondary"
             >
