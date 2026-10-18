@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import "./Navbar.css";
 import { FaBars, FaTimes, FaFileAlt } from "react-icons/fa";
+import profile from "../../assets/Profile.jpg";
 
 function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -48,11 +49,10 @@ function Navbar() {
     <header className={`navbar-wrapper ${scrolled ? "scrolled" : ""}`}>
       <nav className="navbar">
         <a href="#home" className="logo" onClick={() => setMenuOpen(false)}>
-          <span className="logo-bracket">&lt;</span>
+          <img src={profile} alt="Shelema Ageri" className="logo-avatar" />
           <span className="logo-text">Shelema</span>
           <span className="logo-dot">.</span>
           <span className="logo-highlight">dev</span>
-          <span className="logo-bracket"> /&gt;</span>
         </a>
 
         <div className="nav-actions">

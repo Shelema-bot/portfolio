@@ -42,6 +42,16 @@
   transform: scale(1.03);
 }
 
+.logo-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--primary);
+  margin-right: 10px;
+  flex-shrink: 0;
+}
+
 .logo-bracket {
   color: var(--primary);
   font-family: var(--font-mono);
