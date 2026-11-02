@@ -11,120 +11,146 @@ import {
   FaTasks,
   FaKey,
   FaTimes,
-  FaInfoCircle
+  FaInfoCircle,
+  FaTelegramPlane,
+  FaFutbol,
+  FaCheckCircle,
 } from "react-icons/fa";
+import { useLanguage } from "../../context/LanguageContext";
 import projectImage from "../../assets/project.jpg";
 
 function Projects() {
   const [filter, setFilter] = useState("all");
   const [activeModalProject, setActiveModalProject] = useState(null);
+  const { t } = useLanguage();
 
   const projects = [
     {
-      id: "ecommerce",
-      title: "Tech & Electronics E-Commerce Platform",
+      id: "oict-store",
+      title: t.projects.project1.title,
       category: "fullstack",
       featured: true,
       image: projectImage,
-      label: "Full-Stack MERN Project",
-      tagline: "End-to-End Online Store with Chapa Payment Processing & Admin Control",
-      description:
-        "A full-stack commercial web application engineered for purchasing technology products and consumer electronics. Features an intuitive customer storefront, dynamic shopping cart, order tracking, and automated checkout integrated with the Chapa payment gateway. Includes a comprehensive admin control panel to manage product inventory, categories, customer orders, and revenue metrics.",
-      technologies: ["React", "Node.js", "Express.js", "MongoDB", "JWT", "Chapa API", "Bcrypt"],
-      features: [
-        { icon: <FaShoppingCart />, text: "Shopping cart & order lifecycle workflow" },
-        { icon: <FaCreditCard />, text: "Online payments via Chapa API integration" },
-        { icon: <FaUserShield />, text: "Protected Admin dashboard for inventory & order dispatch" },
-        { icon: <FaKey />, text: "Role-based JWT authentication and encrypted user credentials" },
+      label: t.projects.project1.badge,
+      tagline: t.projects.project1.tagline,
+      description: t.projects.project1.description,
+      technologies: [
+        "React",
+        "Node.js",
+        "Express.js",
+        "MongoDB",
+        "JWT",
+        "Chapa API",
+        "Telebirr",
+        "CBE Birr",
+        "Multer",
       ],
-      githubUrl: "https://github.com/Shelema-bot",
-      demoUrl: "https://github.com/Shelema-bot",
-      demoNote: "Source code and architecture documentation available on GitHub."
+      features: [
+        { icon: <FaCreditCard />, text: t.projects.project1.features[0] },
+        { icon: <FaCheckCircle />, text: t.projects.project1.features[1] },
+        { icon: <FaUserShield />, text: t.projects.project1.features[2] },
+        { icon: <FaShoppingCart />, text: t.projects.project1.features[3] },
+        { icon: <FaKey />, text: t.projects.project1.features[4] },
+      ],
+      githubUrl: t.projects.project1.githubUrl,
+      liveUrl: t.projects.project1.liveUrl,
+      liveBtnLabel: t.projects.viewLive,
+      isTelegram: false,
     },
     {
-      id: "campus-connect",
-      title: "Campus Connect - University Event & Student Hub",
-      category: "fullstack",
-      featured: false,
-      label: "Campus Web Application",
-      tagline: "University Event Discovery & Student Community Portal",
-      description:
-        "A dedicated web portal tailored for university students to discover campus workshops, tech seminars, and social activities. Students can browse upcoming events, RSVP with one click, and receive confirmation notifications.",
-      technologies: ["React", "Node.js", "Express.js", "MongoDB", "Tailwind CSS"],
-      features: [
-        { icon: <FaCalendarAlt />, text: "Event scheduling & RSVP attendance management" },
-        { icon: <FaUserShield />, text: "Student profiles & event organizer role permissions" },
+      id: "shelema-bot",
+      title: t.projects.project2.title,
+      category: "backend",
+      featured: true,
+      label: t.projects.project2.badge,
+      tagline: t.projects.project2.tagline,
+      description: t.projects.project2.description,
+      technologies: [
+        "Node.js",
+        "Express.js",
+        "MongoDB Atlas",
+        "Telegram Bot API",
+        "Render Webhooks",
+        "REST API",
       ],
-      githubUrl: "https://github.com/Shelema-bot",
-      demoUrl: "https://github.com/Shelema-bot",
-      demoNote: "Campus initiative project developed with MERN stack architecture."
+      features: [
+        { icon: <FaTelegramPlane />, text: t.projects.project2.features[0] },
+        { icon: <FaCalendarAlt />, text: t.projects.project2.features[1] },
+        { icon: <FaUserShield />, text: t.projects.project2.features[2] },
+        { icon: <FaFutbol />, text: t.projects.project2.features[3] },
+        { icon: <FaKey />, text: t.projects.project2.features[4] },
+      ],
+      githubUrl: t.projects.project2.githubUrl,
+      liveUrl: t.projects.project2.liveUrl,
+      liveBtnLabel: t.projects.viewBot,
+      isTelegram: true,
     },
     {
       id: "taskflow",
-      title: "TaskFlow - Agile Team Collaboration Board",
+      title: t.projects.project3.title,
       category: "frontend",
       featured: false,
-      label: "Productivity Web App",
-      tagline: "Interactive Kanban Board with Real-Time State Progression",
-      description:
-        "A task and project management application featuring interactive Kanban swimlanes, state progression, sprint milestones, priority indicators, and responsive mobile-first controls.",
+      label: t.projects.project3.badge,
+      tagline: t.projects.project3.tagline,
+      description: t.projects.project3.description,
       technologies: ["React", "Framer Motion", "JavaScript (ES6+)", "CSS3", "Local Storage"],
       features: [
-        { icon: <FaTasks />, text: "Interactive task columns (Todo, In Progress, Review, Completed)" },
-        { icon: <FaInfoCircle />, text: "State persistence, smooth drag animations & priority filtering" },
+        { icon: <FaTasks />, text: t.projects.project3.features[0] },
+        { icon: <FaInfoCircle />, text: t.projects.project3.features[1] },
+        { icon: <FaCheckCircle />, text: t.projects.project3.features[2] },
       ],
-      githubUrl: "https://github.com/Shelema-bot",
-      demoUrl: "https://github.com/Shelema-bot",
-      demoNote: "Designed for agile student teams and developer sprint workflows."
+      githubUrl: t.projects.project3.githubUrl,
+      liveUrl: t.projects.project3.liveUrl,
+      liveBtnLabel: t.projects.viewCode,
+      isTelegram: false,
     },
     {
       id: "payment-api",
-      title: "Chapa Payment & Secure Auth Microservice",
+      title: t.projects.project4.title,
       category: "backend",
       featured: false,
-      label: "RESTful Backend Architecture",
-      tagline: "Modular Payment Gateway Webhook & Token Authentication Service",
-      description:
-        "A secure backend service demonstrating robust RESTful API patterns, Chapa payment webhook signature verification, JWT token rotation, Bcrypt password hashing, and structured error handling middleware.",
+      label: t.projects.project4.badge,
+      tagline: t.projects.project4.tagline,
+      description: t.projects.project4.description,
       technologies: ["Node.js", "Express.js", "MongoDB", "Postman", "JWT", "Chapa Webhooks"],
       features: [
-        { icon: <FaCreditCard />, text: "Automated webhook listeners & payment status verification" },
-        { icon: <FaKey />, text: "Standardized REST endpoints with Postman verification tests" },
+        { icon: <FaCreditCard />, text: t.projects.project4.features[0] },
+        { icon: <FaKey />, text: t.projects.project4.features[1] },
+        { icon: <FaCheckCircle />, text: t.projects.project4.features[2] },
       ],
-      githubUrl: "https://github.com/Shelema-bot",
-      demoUrl: "https://github.com/Shelema-bot",
-      demoNote: "Includes complete Postman documentation and environment configuration."
-    }
+      githubUrl: t.projects.project4.githubUrl,
+      liveUrl: t.projects.project4.liveUrl,
+      liveBtnLabel: t.projects.viewCode,
+      isTelegram: false,
+    },
   ];
 
-  const filteredProjects = filter === "all"
-    ? projects
-    : projects.filter(p => p.category === filter);
+  const filterTabs = [
+    { id: "all", label: t.projects.filterAll },
+    { id: "fullstack", label: t.projects.filterFullstack },
+    { id: "backend", label: t.projects.filterBackend },
+    { id: "frontend", label: t.projects.filterFrontend },
+  ];
+
+  const filteredProjects =
+    filter === "all" ? projects : projects.filter((p) => p.category === filter);
 
   return (
     <section className="projects" id="projects">
       <div className="section-header">
         <div className="section-badge">
           <span className="dot"></span>
-          <span>Portfolio Showcase</span>
+          <span>{t.projects.badge}</span>
         </div>
         <h2 className="section-title">
-          Featured <span>Projects</span>
+          {t.projects.title} <span>{t.projects.titleSpan}</span>
         </h2>
-        <p className="section-desc">
-          Production-grade applications engineered with modern technologies, 
-          clean architecture, and attention to performance and security.
-        </p>
+        <p className="section-desc">{t.projects.subtitle}</p>
       </div>
 
       {/* Filter Tabs */}
       <div className="project-filter-tabs">
-        {[
-          { id: "all", label: "All Projects" },
-          { id: "fullstack", label: "Full-Stack MERN" },
-          { id: "frontend", label: "Frontend" },
-          { id: "backend", label: "Backend & APIs" },
-        ].map((tab) => (
+        {filterTabs.map((tab) => (
           <button
             key={tab.id}
             className={`filter-btn ${filter === tab.id ? "active" : ""}`}
@@ -150,11 +176,7 @@ function Projects() {
             >
               {project.image && (
                 <div className="project-media">
-                  <img
-                    src={project.image}
-                    alt={project.title}
-                    className="project-cover-img"
-                  />
+                  <img src={project.image} alt={project.title} className="project-cover-img" />
                   <span className="media-badge">{project.label}</span>
                 </div>
               )}
@@ -182,26 +204,38 @@ function Projects() {
                 {/* Tech Pills */}
                 <div className="tech-badge-container">
                   {project.technologies.map((tech, idx) => (
-                    <span key={idx} className="tech-pill">{tech}</span>
+                    <span key={idx} className="tech-pill">
+                      {tech}
+                    </span>
                   ))}
                 </div>
 
                 {/* Actions */}
                 <div className="project-btn-group">
                   <a
-                    href={project.githubUrl}
+                    href={project.liveUrl}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="btn btn-primary project-action-btn"
                   >
-                    <FaGithub /> Source Code
+                    {project.isTelegram ? <FaTelegramPlane /> : <FaExternalLinkAlt />}
+                    {project.liveBtnLabel}
+                  </a>
+
+                  <a
+                    href={project.githubUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn btn-secondary project-action-btn"
+                  >
+                    <FaGithub /> {t.projects.viewCode}
                   </a>
 
                   <button
                     onClick={() => setActiveModalProject(project)}
-                    className="btn btn-secondary project-action-btn"
+                    className="btn btn-secondary project-action-btn details-btn"
                   >
-                    <FaExternalLinkAlt /> Architecture & Details
+                    <FaInfoCircle /> {t.projects.detailsBtn}
                   </button>
                 </div>
               </div>
@@ -216,9 +250,9 @@ function Projects() {
           <div className="project-modal-backdrop" onClick={() => setActiveModalProject(null)}>
             <motion.div
               className="project-modal glass-card"
-              initial={{ opacity: 0, scale: 0.95 }}
+              initial={{ opacity: 0, scale: 0.94 }}
               animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.95 }}
+              exit={{ opacity: 0, scale: 0.94 }}
               onClick={(e) => e.stopPropagation()}
             >
               <button
@@ -238,43 +272,54 @@ function Projects() {
                 <p className="modal-description">{activeModalProject.description}</p>
 
                 <div className="modal-info-block">
-                  <h4>Key Architecture Highlights</h4>
-                  <ul>
+                  <h4>{t.projects.keyFeatures}</h4>
+                  <ul className="modal-feature-list">
                     {activeModalProject.features.map((f, i) => (
-                      <li key={i}>{f.text}</li>
+                      <li key={i}>
+                        <span className="modal-bullet-icon">{f.icon}</span>
+                        <span>{f.text}</span>
+                      </li>
                     ))}
                   </ul>
                 </div>
 
                 <div className="modal-tech-stack">
-                  <h4>Technology Stack</h4>
+                  <h4>{t.projects.architecture}</h4>
                   <div className="tech-badge-container">
                     {activeModalProject.technologies.map((t, i) => (
-                      <span key={i} className="tech-pill">{t}</span>
+                      <span key={i} className="tech-pill">
+                        {t}
+                      </span>
                     ))}
                   </div>
-                </div>
-
-                <div className="modal-note-box">
-                  <FaInfoCircle />
-                  <span>{activeModalProject.demoNote}</span>
                 </div>
               </div>
 
               <div className="modal-footer">
                 <a
-                  href={activeModalProject.githubUrl}
+                  href={activeModalProject.liveUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="btn btn-primary"
                 >
-                  <FaGithub /> View on GitHub
+                  {activeModalProject.isTelegram ? <FaTelegramPlane /> : <FaExternalLinkAlt />}
+                  {activeModalProject.liveBtnLabel}
                 </a>
+
+                <a
+                  href={activeModalProject.githubUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn btn-secondary"
+                >
+                  <FaGithub /> {t.projects.viewCode}
+                </a>
+
                 <button
                   className="btn btn-secondary"
                   onClick={() => setActiveModalProject(null)}
                 >
-                  Close
+                  {t.projects.modalClose}
                 </button>
               </div>
             </motion.div>

@@ -4,49 +4,19 @@ import {
   FaGraduationCap,
   FaCode,
   FaShieldAlt,
-  FaLaptopCode,
-  FaCheckCircle
+  FaBriefcase,
+  FaCheckCircle,
 } from "react-icons/fa";
+import { useLanguage } from "../../context/LanguageContext";
 
 function About() {
-  const highlights = [
-    "BSc Computer Science (Senior Undergraduate)",
-    "Full-Stack MERN Development (React, Node, Express, MongoDB)",
-    "Chapa Payment API & Webhook Processing",
-    "Secure JWT Authentication & Password Hashing",
-    "RESTful API Architecture & Schema Design",
-    "Git Collaboration & Postman API Verification"
-  ];
+  const { t } = useLanguage();
 
-  const infoCards = [
-    {
-      icon: <FaGraduationCap />,
-      title: "Academic Background",
-      detail: "BSc in Computer Science",
-      sub: "Haramaya University (4th Year Senior)",
-      badge: "Degree Candidate"
-    },
-    {
-      icon: <FaCode />,
-      title: "Full-Stack Development",
-      detail: "Web Application Development",
-      sub: "React.js, Node.js, Express.js, MongoDB",
-      badge: "MERN Stack"
-    },
-    {
-      icon: <FaShieldAlt />,
-      title: "Backend & Systems",
-      detail: "RESTful APIs & Security",
-      sub: "JWT Authentication, Middleware, Chapa Gateway",
-      badge: "Production Ready"
-    },
-    {
-      icon: <FaLaptopCode />,
-      title: "Development Workflow",
-      detail: "Modern Tooling & Standards",
-      sub: "Git, GitHub, Postman, Clean Code & Responsive Design",
-      badge: "Best Practices"
-    }
+  const cardIcons = [
+    <FaGraduationCap key="grad" />,
+    <FaCode key="code" />,
+    <FaShieldAlt key="shield" />,
+    <FaBriefcase key="briefcase" />,
   ];
 
   return (
@@ -54,52 +24,35 @@ function About() {
       <div className="section-header">
         <div className="section-badge">
           <span className="dot"></span>
-          <span>Background</span>
+          <span>{t.about.badge}</span>
         </div>
         <h2 className="section-title">
-          About <span>Me</span>
+          {t.about.title} <span>{t.about.titleSpan}</span>
         </h2>
-        <p className="section-desc">
-          Education, technical foundations, and full-stack software development experience.
-        </p>
+        <p className="section-desc">{t.about.subtitle}</p>
       </div>
 
       <div className="about-container">
         {/* Left Column: Story with optimal text alignment */}
         <motion.div
           className="about-story glass-card"
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 25 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
+          transition={{ duration: 0.55 }}
         >
           <div className="story-header">
             <h3>Shelema Ageri</h3>
-            <span className="story-tag">Full Stack Developer</span>
+            <span className="story-tag">{t.about.storyTitle}</span>
           </div>
 
-          <p className="story-paragraph">
-            I am a fourth-year <strong>Computer Science student at Haramaya University</strong> with 
-            a disciplined foundation in software development, algorithms, database systems, and web architecture. 
-            My primary technical focus is full-stack web development using the 
-            <strong> MERN stack (MongoDB, Express.js, React, Node.js)</strong>.
-          </p>
-
-          <p className="story-paragraph">
-            Throughout my academic career, I have applied computer science principles to real-world software projects. 
-            Notably, I designed and built a comprehensive <strong>Tech & Electronics E-Commerce Platform</strong>, 
-            incorporating user authentication, inventory management, shopping carts, order workflows, and online payment 
-            processing integrated with the <strong>Chapa Payment Gateway</strong>.
-          </p>
-
-          <p className="story-paragraph">
-            I prioritize writing readable, maintainable code, developing secure RESTful APIs, and building 
-            responsive user interfaces that offer consistent performance across devices.
-          </p>
+          <p className="story-paragraph">{t.about.p1}</p>
+          <p className="story-paragraph">{t.about.p2}</p>
+          <p className="story-paragraph">{t.about.p3}</p>
 
           {/* Highlights Checklist */}
           <div className="about-highlights-grid">
-            {highlights.map((item, index) => (
+            {t.about.highlightsList.map((item, index) => (
               <div key={index} className="highlight-pill">
                 <FaCheckCircle className="check-icon" />
                 <span>{item}</span>
@@ -108,26 +61,24 @@ function About() {
           </div>
         </motion.div>
 
-        {/* Right Column: Key Pillars */}
+        {/* Right Column: 4 Strategic Capability Cards */}
         <div className="about-cards-column">
-          {infoCards.map((card, index) => (
+          {t.about.cards.map((card, index) => (
             <motion.div
               key={index}
               className="about-info-card glass-card"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, x: 25 }}
+              whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: index * 0.1 }}
+              transition={{ duration: 0.45, delay: index * 0.1 }}
             >
-              <div className="info-icon-box">
-                {card.icon}
-              </div>
+              <div className="info-icon-box">{cardIcons[index]}</div>
               <div className="info-card-text">
                 <div className="info-card-top">
                   <h4>{card.title}</h4>
                   <span className="card-badge">{card.badge}</span>
                 </div>
-                <p className="info-detail">{card.detail}</p>
+                <div className="info-detail">{card.detail}</div>
                 <span className="info-sub">{card.sub}</span>
               </div>
             </motion.div>

@@ -1,16 +1,22 @@
 import { useState, useEffect } from "react";
 import "./Navbar.css";
-import { FaBars, FaTimes, FaFileAlt } from "react-icons/fa";
-import profile from "../../assets/Profile.png";
+import { FaBars, FaTimes, FaFileAlt, FaSun, FaMoon, FaGlobe } from "react-icons/fa";
+import { useTheme } from "../../context/ThemeContext";
+import { useLanguage } from "../../context/LanguageContext";
+import profilePhoto from "../../assets/extracted_img_0.png";
 
 function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
+  const [langDropdownOpen, setLangDropdownOpen] = useState(false);
+
+  const { toggleTheme, isDark } = useTheme();
+  const { lang, setLang, t } = useLanguage();
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 40) {
+      if (window.scrollY > 30) {
         setScrolled(true);
       } else {
         setScrolled(false);
@@ -18,7 +24,7 @@ function Navbar() {
 
       // Update active section based on scroll position
       const sections = ["home", "about", "skills", "projects", "contact"];
-      const scrollPosition = window.scrollY + 200;
+      const scrollPosition = window.scrollY + 220;
 
       for (const section of sections) {
         const el = document.getElementById(section);
@@ -37,25 +43,49 @@ function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Close dropdown on outside click
+  useEffect(() => {
+    const handleOutsideClick = (e) => {
+      if (!e.target.closest(".lang-switcher")) {
+        setLangDropdownOpen(false);
+      }
+    };
+    document.addEventListener("click", handleOutsideClick);
+    return () => document.removeEventListener("click", handleOutsideClick);
+  }, []);
+
   const navLinks = [
-    { name: "Home", href: "#home", id: "home" },
-    { name: "About", href: "#about", id: "about" },
-    { name: "Skills", href: "#skills", id: "skills" },
-    { name: "Projects", href: "#projects", id: "projects" },
-    { name: "Contact", href: "#contact", id: "contact" },
+    { name: t.nav.home, href: "#home", id: "home" },
+    { name: t.nav.about, href: "#about", id: "about" },
+    { name: t.nav.skills, href: "#skills", id: "skills" },
+    { name: t.nav.projects, href: "#projects", id: "projects" },
+    { name: t.nav.contact, href: "#contact", id: "contact" },
   ];
+
+  const languages = [
+    { code: "en", label: "English", short: "EN" },
+    { code: "om", label: "Afaan Oromoo", short: "OM" },
+    { code: "am", label: "አማርኛ", short: "AM" },
+  ];
+
+  const currentLang = languages.find((l) => l.code === lang) || languages[0];
 
   return (
     <header className={`navbar-wrapper ${scrolled ? "scrolled" : ""}`}>
       <nav className="navbar">
+        {/* Brand Logo with Rounded Photo Avatar */}
         <a href="#home" className="logo" onClick={() => setMenuOpen(false)}>
-          <img src={profile} alt="Shelema Ageri" className="logo-avatar" />
+          <div className="logo-avatar-frame">
+            <img src={profilePhoto} alt="Shelema Ageri" className="logo-avatar" />
+          </div>
           <span className="logo-text">Shelema</span>
           <span className="logo-dot">.</span>
           <span className="logo-highlight">dev</span>
         </a>
 
+        {/* Right Actions */}
         <div className="nav-actions">
+          {/* Main Navigation Links */}
           <ul className={`nav-links ${menuOpen ? "active" : ""}`}>
             {navLinks.map((link) => (
               <li key={link.id}>
@@ -75,19 +105,66 @@ function Navbar() {
                 className="btn btn-primary nav-cv-btn"
                 onClick={() => setMenuOpen(false)}
               >
-                <FaFileAlt /> Resume CV
+                <FaFileAlt /> {t.nav.resumeBtn}
               </a>
             </li>
           </ul>
 
+          {/* Language Switcher Selector */}
+          <div className="lang-switcher">
+            <button
+              className="lang-btn"
+              onClick={() => setLangDropdownOpen(!langDropdownOpen)}
+              aria-label="Select Language"
+              title="Select Language"
+            >
+              <FaGlobe className="lang-icon" />
+              <span className="lang-current">{currentLang.short}</span>
+            </button>
+
+            {langDropdownOpen && (
+              <div className="lang-dropdown">
+                {languages.map((l) => (
+                  <button
+                    key={l.code}
+                    className={`lang-option ${lang === l.code ? "active" : ""}`}
+                    onClick={() => {
+                      setLang(l.code);
+                      setLangDropdownOpen(false);
+                    }}
+                  >
+                    <span className="lang-code-tag">{l.short}</span>
+                    <span className="lang-name-tag">{l.label}</span>
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+
+          {/* Theme Toggle Button (Light & Dark Mode) */}
+          <button
+            className="theme-toggle-btn"
+            onClick={toggleTheme}
+            aria-label={`Switch to ${isDark ? "Light" : "Dark"} Mode`}
+            title={isDark ? t.nav.themeLight : t.nav.themeDark}
+          >
+            {isDark ? (
+              <FaSun className="theme-icon sun" />
+            ) : (
+              <FaMoon className="theme-icon moon" />
+            )}
+          </button>
+
+          {/* Desktop CV Download */}
           <a
             href="./Shelema_Ageri_CV.pdf"
             download="Shelema_Ageri_CV.pdf"
             className="btn btn-secondary desktop-cv-btn"
           >
-            <FaFileAlt /> CV
+            <FaFileAlt /> {t.nav.resumeBtn}
           </a>
 
+          {/* Mobile Hamburger Toggle */}
           <button
             className="menu-toggle"
             onClick={() => setMenuOpen(!menuOpen)}

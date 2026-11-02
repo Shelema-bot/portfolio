@@ -1,7 +1,7 @@
 .home {
   min-height: 100vh;
   padding: 125px 24px 60px;
-  max-width: 1200px;
+  max-width: 1240px;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
@@ -27,11 +27,11 @@
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  background: rgba(16, 185, 129, 0.08);
-  border: 1px solid rgba(16, 185, 129, 0.25);
-  color: #10b981;
+  background: rgba(16, 185, 129, 0.1);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  color: var(--accent-green);
   font-size: 13px;
-  font-weight: 600;
+  font-weight: 700;
   padding: 6px 14px;
   border-radius: var(--radius-full);
   margin-bottom: 22px;
@@ -51,16 +51,17 @@
   font-weight: 800;
   line-height: 1.12;
   letter-spacing: -0.03em;
-  color: #ffffff;
+  color: var(--text-main);
   margin-bottom: 10px;
 }
 
 .home-title-role {
-  font-size: clamp(19px, 2.6vw, 26px);
+  font-size: clamp(18px, 2.3vw, 24px);
   font-weight: 600;
   color: var(--primary);
   margin-bottom: 20px;
   letter-spacing: -0.01em;
+  line-height: 1.4;
 }
 
 .home-summary {
@@ -68,13 +69,13 @@
   line-height: 1.8;
   color: var(--text-sub);
   margin-bottom: 30px;
-  max-width: 620px;
+  max-width: 640px;
   text-align: left;
 }
 
 .home-summary strong {
-  color: #ffffff;
-  font-weight: 600;
+  color: var(--text-main);
+  font-weight: 700;
 }
 
 .home-actions {
@@ -82,7 +83,7 @@
   flex-wrap: wrap;
   gap: 14px;
   align-items: center;
-  margin-bottom: 30px;
+  margin-bottom: 28px;
 }
 
 /* Contact Pills */
@@ -98,10 +99,10 @@
   align-items: center;
   gap: 8px;
   font-size: 13px;
-  font-weight: 500;
+  font-weight: 600;
   color: var(--text-muted);
-  background: rgba(30, 41, 59, 0.5);
-  border: 1px solid rgba(148, 163, 184, 0.15);
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-subtle);
   padding: 8px 14px;
   border-radius: var(--radius-full);
   transition: all 0.25s ease;
@@ -109,11 +110,18 @@
 
 .contact-pill:hover {
   color: var(--primary);
-  border-color: rgba(56, 189, 248, 0.4);
-  background: rgba(30, 41, 59, 0.85);
+  border-color: var(--primary);
+  background: var(--bg-card-hover);
+  transform: translateY(-2px);
 }
 
-/* Right Column: Seamless Transparent Profile Cutout */
+.location-pill {
+  background: rgba(var(--primary-rgb), 0.08);
+  border-color: rgba(var(--primary-rgb), 0.2);
+  color: var(--text-sub);
+}
+
+/* Right Column: Profile Portrait in Rounded Glowing Border */
 .home-portrait-wrapper {
   display: flex;
   justify-content: center;
@@ -128,31 +136,33 @@
 }
 
 .portrait-avatar-halo {
-  width: 310px;
-  height: 310px;
+  width: 320px;
+  height: 320px;
   border-radius: 50%;
-  padding: 8px;
-  background: radial-gradient(circle at 50% 35%, rgba(56, 189, 248, 0.15) 0%, rgba(15, 23, 42, 0.4) 75%);
-  border: 2px solid rgba(56, 189, 248, 0.35);
-  box-shadow: 0 16px 40px -10px rgba(0, 0, 0, 0.6), 0 0 25px rgba(56, 189, 248, 0.12);
+  padding: 6px;
+  background: radial-gradient(circle at 50% 35%, rgba(var(--primary-rgb), 0.2) 0%, rgba(var(--primary-rgb), 0.04) 75%);
+  border: 3px solid var(--primary);
+  box-shadow: var(--glowing-ring);
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
   position: relative;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.portrait-circle-card:hover .portrait-avatar-halo {
+  transform: scale(1.03);
+  box-shadow: 0 0 35px rgba(var(--primary-rgb), 0.5), 0 0 70px rgba(59, 130, 246, 0.3);
 }
 
 .portrait-transparent-img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  border-radius: 50%;
   display: block;
-  filter: drop-shadow(0 10px 18px rgba(0, 0, 0, 0.45));
   transition: transform 0.4s ease;
-}
-
-.portrait-circle-card:hover .portrait-transparent-img {
-  transform: scale(1.04);
 }
 
 .portrait-caption {
@@ -164,14 +174,15 @@
 }
 
 .caption-name {
-  font-size: 16px;
-  font-weight: 700;
-  color: #ffffff;
+  font-size: 17px;
+  font-weight: 800;
+  color: var(--text-main);
 }
 
 .caption-role {
   font-size: 13px;
-  color: var(--text-muted);
+  font-weight: 600;
+  color: var(--primary);
 }
 
 /* Highlights Row */
@@ -179,17 +190,20 @@
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 16px;
-  background: rgba(15, 23, 42, 0.7);
-  border: 1px solid rgba(148, 163, 184, 0.15);
+  background: var(--bg-card);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid var(--border-subtle);
   border-radius: var(--radius-lg);
   padding: 22px 28px;
+  box-shadow: var(--shadow-md);
 }
 
 .highlight-cell {
   display: flex;
   flex-direction: column;
   gap: 4px;
-  border-right: 1px solid rgba(148, 163, 184, 0.15);
+  border-right: 1px solid var(--border-subtle);
   padding-right: 16px;
   text-align: left;
 }
@@ -202,7 +216,7 @@
 .highlight-label {
   font-size: 14px;
   font-weight: 700;
-  color: #ffffff;
+  color: var(--text-main);
 }
 
 .highlight-value {
@@ -252,8 +266,8 @@
   }
 
   .portrait-avatar-halo {
-    width: 270px;
-    height: 270px;
+    width: 280px;
+    height: 280px;
   }
 }
 
@@ -269,7 +283,7 @@
   }
 
   .home-title-role {
-    font-size: 18px;
+    font-size: 17px;
   }
 
   .home-summary {
@@ -296,19 +310,19 @@
   }
 
   .portrait-avatar-halo {
-    width: 230px;
-    height: 230px;
+    width: 240px;
+    height: 240px;
   }
 
   .home-highlights-row {
     grid-template-columns: 1fr;
-    padding: 16px;
+    padding: 18px;
     gap: 14px;
   }
 
   .highlight-cell {
     border-right: none;
-    border-bottom: 1px solid rgba(148, 163, 184, 0.15);
+    border-bottom: 1px solid var(--border-subtle);
     padding-bottom: 12px;
     padding-right: 0;
   }

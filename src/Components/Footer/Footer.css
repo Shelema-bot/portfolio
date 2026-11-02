@@ -1,14 +1,14 @@
 .footer {
   position: relative;
-  /* Distinct deep midnight carbon background with radial top glow */
-  background-color: #030611;
+  background-color: var(--footer-bg);
   background-image: 
-    radial-gradient(ellipse at 50% 0%, rgba(56, 189, 248, 0.1) 0%, transparent 70%),
-    linear-gradient(180deg, #050b18 0%, #02040a 100%);
-  border-top: 1px solid rgba(56, 189, 248, 0.25);
+    radial-gradient(ellipse at 50% 0%, rgba(var(--primary-rgb), 0.12) 0%, transparent 70%),
+    linear-gradient(180deg, var(--footer-bg) 0%, #030611 100%);
+  border-top: 1.5px solid var(--primary);
   padding: 65px 24px 30px;
-  box-shadow: 0 -15px 40px rgba(0, 0, 0, 0.7);
+  box-shadow: 0 -15px 40px rgba(0, 0, 0, 0.5);
   overflow: hidden;
+  color: var(--footer-text);
 }
 
 /* Glowing top accent stripe */
@@ -19,18 +19,18 @@
   left: 0;
   right: 0;
   height: 2px;
-  background: linear-gradient(90deg, transparent, #38bdf8 20%, #60a5fa 50%, #38bdf8 80%, transparent);
-  box-shadow: 0 0 16px rgba(56, 189, 248, 0.8);
+  background: linear-gradient(90deg, transparent, var(--primary) 20%, #60a5fa 50%, var(--primary) 80%, transparent);
+  box-shadow: 0 0 16px var(--primary);
 }
 
 .footer-top {
-  max-width: 1200px;
+  max-width: 1240px;
   margin: 0 auto;
   display: grid;
   grid-template-columns: 2fr 1fr 1fr;
   gap: 40px;
   padding-bottom: 40px;
-  border-bottom: 1px solid rgba(148, 163, 184, 0.12);
+  border-bottom: 1px solid var(--footer-border);
   text-align: left;
 }
 
@@ -42,7 +42,7 @@
 }
 
 .footer-logo {
-  font-size: 20px;
+  font-size: 21px;
   font-weight: 800;
   color: #ffffff;
   margin-bottom: 14px;
@@ -66,7 +66,7 @@
 .footer-bio {
   font-size: 14px;
   line-height: 1.7;
-  color: var(--text-muted);
+  color: var(--footer-muted);
   margin-bottom: 18px;
   text-align: left;
 }
@@ -78,11 +78,11 @@
   font-size: 12px;
   color: #34d399;
   font-weight: 600;
-  background: rgba(16, 185, 129, 0.08);
+  background: rgba(16, 185, 129, 0.1);
   padding: 5px 14px;
   border-radius: var(--radius-full);
   width: fit-content;
-  border: 1px solid rgba(16, 185, 129, 0.25);
+  border: 1px solid rgba(16, 185, 129, 0.3);
 }
 
 .pulse-dot {
@@ -115,7 +115,7 @@
 
 .footer-links-group a {
   font-size: 14px;
-  color: var(--text-muted);
+  color: var(--footer-muted);
   transition: all 0.2s ease;
   display: inline-flex;
   align-items: center;
@@ -129,7 +129,7 @@
 
 /* Footer Bottom */
 .footer-bottom {
-  max-width: 1200px;
+  max-width: 1240px;
   margin: 24px auto 0;
   display: flex;
   justify-content: space-between;
@@ -140,16 +140,11 @@
 
 .copyright-text {
   font-size: 13px;
-  color: var(--text-dim);
+  color: var(--footer-muted);
   display: flex;
   align-items: center;
   gap: 6px;
   flex-wrap: wrap;
-}
-
-.heart-icon {
-  color: #ef4444;
-  font-size: 13px;
 }
 
 .back-to-top-btn {
@@ -157,17 +152,18 @@
   align-items: center;
   gap: 8px;
   padding: 8px 16px;
-  background: rgba(30, 41, 59, 0.6);
-  border: 1px solid rgba(148, 163, 184, 0.2);
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--footer-border);
   border-radius: var(--radius-full);
-  color: var(--text-sub);
+  color: var(--footer-text);
   font-size: 13px;
   font-weight: 600;
   transition: all 0.25s ease;
+  cursor: pointer;
 }
 
 .back-to-top-btn:hover {
-  background: rgba(56, 189, 248, 0.15);
+  background: rgba(var(--primary-rgb), 0.2);
   border-color: var(--primary);
   color: var(--primary);
   transform: translateY(-2px);

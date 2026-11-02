@@ -1,12 +1,12 @@
 .about {
   padding: 90px 24px 70px;
-  max-width: 1200px;
+  max-width: 1240px;
   margin: 0 auto;
 }
 
 .about-container {
   display: grid;
-  grid-template-columns: 1.15fr 0.85fr;
+  grid-template-columns: 1.18fr 0.82fr;
   gap: 36px;
   align-items: stretch;
 }
@@ -33,17 +33,17 @@
 .story-header h3 {
   font-size: 24px;
   font-weight: 800;
-  color: #ffffff;
+  color: var(--text-main);
 }
 
 .story-tag {
   font-size: 13px;
-  font-weight: 600;
+  font-weight: 700;
   color: var(--primary);
-  background: rgba(56, 189, 248, 0.1);
-  padding: 4px 14px;
+  background: rgba(var(--primary-rgb), 0.1);
+  padding: 5px 14px;
   border-radius: var(--radius-full);
-  border: 1px solid rgba(56, 189, 248, 0.25);
+  border: 1px solid rgba(var(--primary-rgb), 0.25);
 }
 
 .story-paragraph {
@@ -55,8 +55,8 @@
 }
 
 .story-paragraph strong {
-  color: #ffffff;
-  font-weight: 600;
+  color: var(--text-main);
+  font-weight: 700;
 }
 
 /* Highlights Grid */
@@ -76,9 +76,9 @@
   font-size: 13px;
   font-weight: 600;
   color: var(--text-main);
-  background: rgba(15, 23, 42, 0.6);
+  background: var(--bg-secondary);
   padding: 10px 14px;
-  border-radius: 10px;
+  border-radius: var(--radius-sm);
   border: 1px solid var(--border-subtle);
   text-align: left;
 }
@@ -113,9 +113,9 @@
 .info-icon-box {
   width: 48px;
   height: 48px;
-  border-radius: 12px;
-  background: rgba(56, 189, 248, 0.1);
-  border: 1px solid rgba(56, 189, 248, 0.2);
+  border-radius: var(--radius-md);
+  background: rgba(var(--primary-rgb), 0.1);
+  border: 1px solid rgba(var(--primary-rgb), 0.2);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -141,23 +141,23 @@
 .info-card-top h4 {
   font-size: 16px;
   font-weight: 700;
-  color: #ffffff;
+  color: var(--text-main);
 }
 
 .card-badge {
   font-size: 11px;
-  font-weight: 600;
+  font-weight: 700;
   padding: 3px 9px;
   border-radius: var(--radius-full);
-  background: rgba(16, 185, 129, 0.1);
-  color: #34d399;
-  border: 1px solid rgba(16, 185, 129, 0.25);
+  background: rgba(16, 185, 129, 0.12);
+  color: var(--accent-green);
+  border: 1px solid rgba(16, 185, 129, 0.3);
 }
 
 .info-detail {
   font-size: 14px;
-  font-weight: 600;
-  color: #ffffff;
+  font-weight: 700;
+  color: var(--text-main);
   margin-bottom: 3px;
 }
 

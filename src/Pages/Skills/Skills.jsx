@@ -12,25 +12,27 @@ import {
   FaLayerGroup,
   FaServer,
   FaDatabase,
-  FaTools
+  FaTools,
 } from "react-icons/fa";
 import {
   SiExpress,
   SiMongodb,
   SiPostman,
   SiTailwindcss,
-  SiVite
+  SiVite,
 } from "react-icons/si";
+import { useLanguage } from "../../context/LanguageContext";
 
 function Skills() {
   const [activeCategory, setActiveCategory] = useState("all");
+  const { t } = useLanguage();
 
   const categories = [
-    { id: "all", label: "All Skills", icon: <FaLayerGroup /> },
-    { id: "frontend", label: "Frontend", icon: <FaReact /> },
-    { id: "backend", label: "Backend", icon: <FaServer /> },
-    { id: "database", label: "Databases", icon: <FaDatabase /> },
-    { id: "tools", label: "Tools & DevOps", icon: <FaTools /> },
+    { id: "all", label: t.skills.categories.all, icon: <FaLayerGroup /> },
+    { id: "frontend", label: t.skills.categories.frontend, icon: <FaReact /> },
+    { id: "backend", label: t.skills.categories.backend, icon: <FaServer /> },
+    { id: "database", label: t.skills.categories.database, icon: <FaDatabase /> },
+    { id: "tools", label: t.skills.categories.tools, icon: <FaTools /> },
   ];
 
   const allSkills = [
@@ -41,39 +43,39 @@ function Skills() {
       icon: <FaReact />,
       color: "#38bdf8",
       level: "Core",
-      note: "Components, Hooks, State Management, Router"
+      note: "Hooks, State Management, React Router, Component Trees",
     },
     {
       name: "JavaScript (ES6+)",
       category: "frontend",
       icon: <FaJs />,
-      color: "#facc15",
+      color: "#f59e0b",
       level: "Core",
-      note: "Async/Await, Promises, Closures, DOM APIs"
+      note: "Async/Await, Promises, Closures, DOM APIs & ES Modules",
     },
     {
       name: "Tailwind CSS",
       category: "frontend",
       icon: <SiTailwindcss />,
-      color: "#38bdf8",
+      color: "#06b6d4",
       level: "Proficient",
-      note: "Utility-first, Responsive UI Layouts"
+      note: "Utility-first Design, Responsive Layouts, Design Systems",
     },
     {
-      name: "HTML5 & Semantic Web",
+      name: "HTML5 & Web Semantics",
       category: "frontend",
       icon: <FaHtml5 />,
       color: "#f97316",
       level: "Core",
-      note: "Semantic Elements, Accessibility Standards"
+      note: "Semantic Structures, Accessibility Standards (a11y), SEO",
     },
     {
-      name: "CSS3 & Modern Styling",
+      name: "CSS3 & Modern Layouts",
       category: "frontend",
       icon: <FaCss3Alt />,
       color: "#3b82f6",
       level: "Core",
-      note: "Flexbox, Grid, Custom Properties, Media Queries"
+      note: "Flexbox, CSS Grid, Custom Properties, Fluid Typography",
     },
 
     // Backend
@@ -83,41 +85,41 @@ function Skills() {
       icon: <FaNodeJs />,
       color: "#22c55e",
       level: "Core",
-      note: "Server-side JavaScript, Asynchronous Runtime"
+      note: "Event Loop, Asynchronous Runtime, Express Microservices",
     },
     {
       name: "Express.js",
       category: "backend",
       icon: <SiExpress />,
-      color: "#e2e8f0",
+      color: "#64748b",
       level: "Core",
-      note: "RESTful Endpoints, Routing, Custom Middlewares"
+      note: "RESTful Endpoints, Custom Middlewares, Error Handlers",
     },
     {
-      name: "JWT Authentication",
+      name: "JWT & Security Auth",
       category: "backend",
       icon: <FaServer />,
       color: "#a855f7",
       level: "Proficient",
-      note: "Token-based Auth, Bcrypt Password Hashing, RBAC"
+      note: "Token-based Auth, Role-Based Access Control (RBAC), Bcrypt",
     },
     {
-      name: "Chapa Payment Gateway",
+      name: "Chapa & Multi-Gateways",
       category: "backend",
       icon: <FaServer />,
       color: "#10b981",
-      level: "Hands-on",
-      note: "API Integration, Webhook Signature Verification"
+      level: "Core",
+      note: "Chapa API, Telebirr, CBE Birr, Webhook Signatures",
     },
 
     // Database
     {
-      name: "MongoDB",
+      name: "MongoDB & Atlas",
       category: "database",
       icon: <SiMongodb />,
       color: "#10b981",
       level: "Core",
-      note: "Document Modeling, Indexing, MongoDB Atlas"
+      note: "Document Modeling, Atlas Cloud Cluster, Aggregations",
     },
     {
       name: "Mongoose ODM",
@@ -125,7 +127,7 @@ function Skills() {
       icon: <FaDatabase />,
       color: "#ef4444",
       level: "Core",
-      note: "Schema Design, Data Validation, Population"
+      note: "Schema Validation, Population, Query Middlewares",
     },
 
     // Tools & DevOps
@@ -135,15 +137,15 @@ function Skills() {
       icon: <FaGitAlt />,
       color: "#f97316",
       level: "Core",
-      note: "Branching, Pull Requests, Merge Strategies"
+      note: "Branching Models, Conflict Resolution, Git CLI",
     },
     {
       name: "GitHub & CI/CD",
       category: "tools",
       icon: <FaGithub />,
-      color: "#f8fafc",
+      color: "#38bdf8",
       level: "Proficient",
-      note: "Repository Management, GitHub Actions, Pages"
+      note: "Repository Governance, GitHub Actions, Pages Deployment",
     },
     {
       name: "Postman",
@@ -151,35 +153,34 @@ function Skills() {
       icon: <SiPostman />,
       color: "#f97316",
       level: "Core",
-      note: "REST API Endpoint Testing & Documentation"
+      note: "API Endpoint Testing, Mock Servers, Test Suites",
     },
     {
-      name: "Vite",
+      name: "Vite & Tooling",
       category: "tools",
       icon: <SiVite />,
       color: "#8b5cf6",
       level: "Proficient",
-      note: "Fast Dev Environment, Production Bundling"
-    }
+      note: "Lightning-fast HMR, Rollup Bundling, Modern Configs",
+    },
   ];
 
-  const filteredSkills = activeCategory === "all"
-    ? allSkills
-    : allSkills.filter(skill => skill.category === activeCategory);
+  const filteredSkills =
+    activeCategory === "all"
+      ? allSkills
+      : allSkills.filter((skill) => skill.category === activeCategory);
 
   return (
     <section className="skills" id="skills">
       <div className="section-header">
         <div className="section-badge">
           <span className="dot"></span>
-          <span>Technical Stack</span>
+          <span>{t.skills.badge}</span>
         </div>
         <h2 className="section-title">
-          Skills & <span>Technologies</span>
+          {t.skills.title} <span>{t.skills.titleSpan}</span>
         </h2>
-        <p className="section-desc">
-          Core technologies, frameworks, and developer tools used for full-stack software development.
-        </p>
+        <p className="section-desc">{t.skills.subtitle}</p>
       </div>
 
       {/* Category Tabs */}
@@ -209,10 +210,7 @@ function Skills() {
               exit={{ opacity: 0, scale: 0.95 }}
               transition={{ duration: 0.25 }}
             >
-              <div 
-                className="skill-icon-wrapper"
-                style={{ color: skill.color }}
-              >
+              <div className="skill-icon-wrapper" style={{ color: skill.color }}>
                 {skill.icon}
               </div>
 

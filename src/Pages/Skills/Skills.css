@@ -1,6 +1,6 @@
 .skills {
   padding: 90px 24px 70px;
-  max-width: 1200px;
+  max-width: 1240px;
   margin: 0 auto;
 }
 
@@ -18,13 +18,14 @@
   align-items: center;
   gap: 8px;
   padding: 9px 18px;
-  background: rgba(30, 41, 59, 0.55);
-  border: 1px solid rgba(148, 163, 184, 0.15);
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-subtle);
   border-radius: var(--radius-full);
   color: var(--text-sub);
   font-size: 13px;
   font-weight: 600;
   transition: all 0.25s ease;
+  cursor: pointer;
 }
 
 .skill-tab-btn .tab-icon {
@@ -32,22 +33,27 @@
 }
 
 .skill-tab-btn:hover {
-  background: rgba(56, 189, 248, 0.1);
+  background: rgba(var(--primary-rgb), 0.12);
   color: var(--primary);
-  border-color: rgba(56, 189, 248, 0.3);
+  border-color: rgba(var(--primary-rgb), 0.35);
 }
 
 .skill-tab-btn.active {
-  background: rgba(56, 189, 248, 0.15);
-  color: #ffffff;
+  background: var(--primary);
+  color: #080d1a;
   border-color: var(--primary);
-  box-shadow: 0 4px 14px rgba(56, 189, 248, 0.2);
+  box-shadow: 0 4px 14px rgba(var(--primary-rgb), 0.35);
+  font-weight: 700;
+}
+
+[data-theme="light"] .skill-tab-btn.active {
+  color: #ffffff;
 }
 
 /* Skills Grid */
 .skills-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
   gap: 20px;
 }
 
@@ -68,17 +74,17 @@
 }
 
 .skill-icon-wrapper {
-  width: 46px;
-  height: 46px;
-  border-radius: 12px;
-  background: rgba(15, 23, 42, 0.8);
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-md);
+  background: var(--bg-secondary);
   border: 1px solid var(--border-subtle);
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 24px;
   flex-shrink: 0;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .skill-content {
@@ -97,17 +103,17 @@
 .skill-name {
   font-size: 15px;
   font-weight: 700;
-  color: #ffffff;
+  color: var(--text-main);
 }
 
 .skill-level-badge {
   font-size: 11px;
-  font-weight: 600;
+  font-weight: 700;
   padding: 2px 8px;
   border-radius: var(--radius-full);
-  background: rgba(56, 189, 248, 0.1);
+  background: rgba(var(--primary-rgb), 0.1);
   color: var(--primary);
-  border: 1px solid rgba(56, 189, 248, 0.2);
+  border: 1px solid rgba(var(--primary-rgb), 0.25);
 }
 
 .skill-note {
