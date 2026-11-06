@@ -5,6 +5,12 @@ import {
   FaEnvelope,
   FaPhoneAlt,
   FaGithub,
+  FaLinkedin,
+  FaTelegramPlane,
+  FaTelegram,
+  FaYoutube,
+  FaTiktok,
+  FaFacebook,
   FaMapMarkerAlt,
   FaPaperPlane,
   FaCopy,
@@ -153,6 +159,79 @@ function Contact() {
             <div className="channel-text">
               <span className="channel-label">{t.contact.locationLabel}</span>
               <span className="channel-value">{t.contact.locationVal}</span>
+            </div>
+          </div>
+
+          {/* Social Channels / Follow Us Card */}
+          <div className="contact-socials-card glass-card">
+            <div className="socials-card-header">
+              <span className="socials-badge-dot"></span>
+              <h4>{t.contact.followUs || "Follow Us & Social Channels"}</h4>
+            </div>
+            <p className="socials-card-desc">
+              {t.contact.followSubtitle || "Connect with me across all my official professional & social profiles:"}
+            </p>
+
+            <div className="social-chips-grid">
+              <a
+                href="https://www.linkedin.com/in/shelema-agari-72aa40444/?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_contact_details%3B9CskwHofQQ%2BfhdreaeLRiw%3D%3D"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="social-chip linkedin"
+              >
+                <FaLinkedin className="social-chip-icon" />
+                <span className="social-chip-title">LinkedIn</span>
+              </a>
+
+              <a
+                href="https://t.me/ijoolleeortodoksii"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="social-chip telegram"
+              >
+                <FaTelegramPlane className="social-chip-icon" />
+                <span className="social-chip-title">Telegram Channel</span>
+              </a>
+
+              <a
+                href="https://t.me/ShelemaSmartBot"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="social-chip telegram-bot"
+              >
+                <FaTelegram className="social-chip-icon" />
+                <span className="social-chip-title">Smart Bot</span>
+              </a>
+
+              <a
+                href="http://www.youtube.com/@shelemalyrics"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="social-chip youtube"
+              >
+                <FaYoutube className="social-chip-icon" />
+                <span className="social-chip-title">YouTube</span>
+              </a>
+
+              <a
+                href="https://tiktok.com/@shelema.lyrics"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="social-chip tiktok"
+              >
+                <FaTiktok className="social-chip-icon" />
+                <span className="social-chip-title">TikTok</span>
+              </a>
+
+              <a
+                href="https://www.facebook.com/profile.php?id=100092282975303"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="social-chip facebook"
+              >
+                <FaFacebook className="social-chip-icon" />
+                <span className="social-chip-title">Facebook</span>
+              </a>
             </div>
           </div>
         </motion.div>

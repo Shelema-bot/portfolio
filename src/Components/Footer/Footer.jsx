@@ -1,5 +1,16 @@
 import "./Footer.css";
-import { FaGithub, FaEnvelope, FaPhoneAlt, FaArrowUp } from "react-icons/fa";
+import {
+  FaGithub,
+  FaLinkedin,
+  FaTelegramPlane,
+  FaTelegram,
+  FaYoutube,
+  FaTiktok,
+  FaFacebook,
+  FaEnvelope,
+  FaPhoneAlt,
+  FaArrowUp,
+} from "react-icons/fa";
 import { useLanguage } from "../../context/LanguageContext";
 
 function Footer() {
@@ -40,10 +51,16 @@ function Footer() {
               <a href="#about">{t.nav.about}</a>
             </li>
             <li>
+              <a href="#services">{t.nav.services}</a>
+            </li>
+            <li>
               <a href="#skills">{t.nav.skills}</a>
             </li>
             <li>
               <a href="#projects">{t.nav.projects}</a>
+            </li>
+            <li>
+              <a href="#experience">{t.nav.experience}</a>
             </li>
             <li>
               <a href="#contact">{t.nav.contact}</a>
@@ -51,22 +68,97 @@ function Footer() {
           </ul>
         </div>
 
+        {/* Follow Us / Social Media */}
+        <div className="footer-links-group">
+          <h4>{t.footer.followUs || "Follow Us"}</h4>
+          <ul className="footer-social-list">
+            <li>
+              <a
+                href="https://www.linkedin.com/in/shelema-agari-72aa40444/?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_contact_details%3B9CskwHofQQ%2BfhdreaeLRiw%3D%3D"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <FaLinkedin className="icon-linkedin" /> LinkedIn
+              </a>
+            </li>
+            <li>
+              <a
+                href="https://t.me/ijoolleeortodoksii"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <FaTelegramPlane className="icon-telegram" /> Telegram Channel
+              </a>
+            </li>
+            <li>
+              <a
+                href="https://t.me/ShelemaSmartBot"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <FaTelegram className="icon-telegram" /> Telegram Smart Bot
+              </a>
+            </li>
+            <li>
+              <a
+                href="http://www.youtube.com/@shelemalyrics"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <FaYoutube className="icon-youtube" /> YouTube
+              </a>
+            </li>
+            <li>
+              <a
+                href="https://tiktok.com/@shelema.lyrics"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <FaTiktok className="icon-tiktok" /> TikTok
+              </a>
+            </li>
+            <li>
+              <a
+                href="https://www.facebook.com/profile.php?id=100092282975303"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <FaFacebook className="icon-facebook" /> Facebook
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        {/* Direct Contact Channels */}
         <div className="footer-links-group">
           <h4>{t.footer.connect}</h4>
           <ul>
             <li>
-              <a href="https://github.com/Shelema-bot" target="_blank" rel="noopener noreferrer">
+              <a
+                href="https://github.com/Shelema-bot"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 <FaGithub /> GitHub
               </a>
             </li>
             <li>
               <a href="mailto:shelemaagari@gmail.com">
-                <FaEnvelope /> Email
+                <FaEnvelope /> shelemaagari@gmail.com
               </a>
             </li>
             <li>
               <a href="tel:0974007772">
                 <FaPhoneAlt /> 0974007772
+              </a>
+            </li>
+            <li>
+              <a
+                href="https://shelema-bot.github.io/portfolio/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                🌐 shelema-bot.github.io
               </a>
             </li>
           </ul>

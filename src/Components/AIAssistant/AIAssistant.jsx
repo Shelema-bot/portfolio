@@ -9,14 +9,14 @@ import {
   FaExternalLinkAlt,
   FaMagic,
   FaMinus,
-  FaUserGraduate,
   FaCode,
   FaTelegramPlane,
   FaShoppingBag,
-  FaPhoneAlt,
+  FaBriefcase,
+  FaShareAlt,
 } from "react-icons/fa";
 import { useLanguage } from "../../context/LanguageContext";
-import profilePhoto from "../../assets/extracted_img_0.png";
+import profilePhoto from "../../assets/input_file_0.png";
 
 export default function AIAssistant() {
   const { lang, t } = useLanguage();
@@ -70,6 +70,17 @@ export default function AIAssistant() {
   const getAIResponse = (userQuery) => {
     const q = userQuery.toLowerCase();
 
+    // Check for Services
+    if (
+      q.includes("service") ||
+      q.includes("tajaajil") ||
+      q.includes("አገልግሎት") ||
+      q.includes("offer") ||
+      q.includes("what can you do")
+    ) {
+      return t.ai.responses.services;
+    }
+
     // Check for Skills / Tech Stack
     if (
       q.includes("skill") ||
@@ -81,23 +92,29 @@ export default function AIAssistant() {
       q.includes("stack") ||
       q.includes("frontend") ||
       q.includes("backend") ||
-      q.includes("tech")
+      q.includes("tech") ||
+      q.includes("%") ||
+      q.includes("percent")
     ) {
       return t.ai.responses.skills;
     }
 
-    // Check for OICT_TechStore / E-Commerce
+    // Check for OICT_TechStore / E-Commerce / Video Demo
     if (
       q.includes("store") ||
       q.includes("ecommerce") ||
       q.includes("e-commerce") ||
-      q.includes("oict") ||
+      q.includes("oict_techstore") ||
       q.includes("chapa") ||
       q.includes("payment") ||
       q.includes("kaffaltii") ||
       q.includes("ክፍያ") ||
       q.includes("ቴሌብር") ||
-      q.includes("telebirr")
+      q.includes("telebirr") ||
+      q.includes("video") ||
+      q.includes("viidiyoo") ||
+      q.includes("ቪዲዮ") ||
+      q.includes("demo")
     ) {
       return t.ai.responses.oict_store;
     }
@@ -116,19 +133,40 @@ export default function AIAssistant() {
       return t.ai.responses.bot;
     }
 
-    // Check for Education / Background / University
+    // Check for Education / Experience / University / GPA
     if (
       q.includes("education") ||
       q.includes("degree") ||
       q.includes("haramaya") ||
       q.includes("university") ||
-      q.includes("school") ||
+      q.includes("experience") ||
+      q.includes("gpa") ||
+      q.includes("oict solutions") ||
+      q.includes("award") ||
+      q.includes("honor") ||
       q.includes("barnoota") ||
+      q.includes("muuxannoo") ||
       q.includes("ትምህርት") ||
-      q.includes("ዩኒቨርሲቲ") ||
+      q.includes("የስራ ልምድ") ||
       q.includes("student")
     ) {
       return t.ai.responses.education;
+    }
+
+    // Check for Social Media / Follow / Profiles
+    if (
+      q.includes("social") ||
+      q.includes("follow") ||
+      q.includes("linkedin") ||
+      q.includes("tiktok") ||
+      q.includes("youtube") ||
+      q.includes("facebook") ||
+      q.includes("channel") ||
+      q.includes("hordoof") ||
+      q.includes("ማህበራዊ") ||
+      q.includes("መከታተል")
+    ) {
+      return t.ai.responses.socials;
     }
 
     // Check for Contact / Hire / Phone / Email
@@ -243,7 +281,7 @@ export default function AIAssistant() {
         )}
       </AnimatePresence>
 
-      {/* Chat Drawer / Window */}
+      {/* Chat Drawer / Window with backdrop-blur-md glassmorphism */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
@@ -339,31 +377,31 @@ export default function AIAssistant() {
                         className="ai-prompt-pill"
                         onClick={() => handleSendMessage(t.ai.prompts[0])}
                       >
-                        <FaCode /> {t.ai.prompts[0]}
+                        <FaBriefcase /> {t.ai.prompts[0]}
                       </button>
                       <button
                         className="ai-prompt-pill"
                         onClick={() => handleSendMessage(t.ai.prompts[1])}
                       >
-                        <FaShoppingBag /> {t.ai.prompts[1]}
+                        <FaCode /> {t.ai.prompts[1]}
                       </button>
                       <button
                         className="ai-prompt-pill"
                         onClick={() => handleSendMessage(t.ai.prompts[2])}
                       >
-                        <FaTelegramPlane /> {t.ai.prompts[2]}
+                        <FaShoppingBag /> {t.ai.prompts[2]}
                       </button>
                       <button
                         className="ai-prompt-pill"
                         onClick={() => handleSendMessage(t.ai.prompts[3])}
                       >
-                        <FaUserGraduate /> {t.ai.prompts[3]}
+                        <FaTelegramPlane /> {t.ai.prompts[3]}
                       </button>
                       <button
                         className="ai-prompt-pill"
                         onClick={() => handleSendMessage(t.ai.prompts[4])}
                       >
-                        <FaPhoneAlt /> {t.ai.prompts[4]}
+                        <FaShareAlt /> {t.ai.prompts[4]}
                       </button>
                     </div>
                   </div>

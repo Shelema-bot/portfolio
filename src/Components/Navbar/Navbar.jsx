@@ -3,7 +3,8 @@ import "./Navbar.css";
 import { FaBars, FaTimes, FaFileAlt, FaSun, FaMoon, FaGlobe } from "react-icons/fa";
 import { useTheme } from "../../context/ThemeContext";
 import { useLanguage } from "../../context/LanguageContext";
-import profilePhoto from "../../assets/extracted_img_0.png";
+import profilePhoto from "../../assets/input_file_0.png";
+import cvPdf from "../../assets/Shelema_Ageri_CV.pdf";
 
 function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -23,7 +24,7 @@ function Navbar() {
       }
 
       // Update active section based on scroll position
-      const sections = ["home", "about", "skills", "projects", "contact"];
+      const sections = ["home", "about", "services", "skills", "projects", "experience", "contact"];
       const scrollPosition = window.scrollY + 220;
 
       for (const section of sections) {
@@ -57,18 +58,39 @@ function Navbar() {
   const navLinks = [
     { name: t.nav.home, href: "#home", id: "home" },
     { name: t.nav.about, href: "#about", id: "about" },
+    { name: t.nav.services, href: "#services", id: "services" },
     { name: t.nav.skills, href: "#skills", id: "skills" },
     { name: t.nav.projects, href: "#projects", id: "projects" },
+    { name: t.nav.experience, href: "#experience", id: "experience" },
     { name: t.nav.contact, href: "#contact", id: "contact" },
   ];
 
   const languages = [
     { code: "en", label: "English", short: "EN" },
-    { code: "om", label: "Afaan Oromoo", short: "OM" },
-    { code: "am", label: "አማርኛ", short: "AM" },
+    { code: "om", label: "Afaan Oromoo (Afaan Dhalootaa)", short: "OM" },
+    { code: "am", label: "Amharic (አማርኛ)", short: "AM" },
   ];
 
   const currentLang = languages.find((l) => l.code === lang) || languages[0];
+
+  const handleDownloadCV = async (e) => {
+    e.preventDefault();
+    setMenuOpen(false);
+    try {
+      const response = await fetch(cvPdf);
+      const blob = await response.blob();
+      const blobUrl = window.URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = blobUrl;
+      link.download = "Shelema_Ageri_CV.pdf";
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(blobUrl);
+    } catch {
+      window.open(cvPdf, "_blank");
+    }
+  };
 
   return (
     <header className={`navbar-wrapper ${scrolled ? "scrolled" : ""}`}>
@@ -100,10 +122,12 @@ function Navbar() {
             ))}
             <li className="mobile-cv-item">
               <a
-                href="./Shelema_Ageri_CV.pdf"
+                href={cvPdf}
                 download="Shelema_Ageri_CV.pdf"
+                onClick={handleDownloadCV}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="btn btn-primary nav-cv-btn"
-                onClick={() => setMenuOpen(false)}
               >
                 <FaFileAlt /> {t.nav.resumeBtn}
               </a>
@@ -157,8 +181,11 @@ function Navbar() {
 
           {/* Desktop CV Download */}
           <a
-            href="./Shelema_Ageri_CV.pdf"
+            href={cvPdf}
             download="Shelema_Ageri_CV.pdf"
+            onClick={handleDownloadCV}
+            target="_blank"
+            rel="noopener noreferrer"
             className="btn btn-secondary desktop-cv-btn"
           >
             <FaFileAlt /> {t.nav.resumeBtn}

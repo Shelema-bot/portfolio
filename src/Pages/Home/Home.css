@@ -56,12 +56,12 @@
 }
 
 .home-title-role {
-  font-size: clamp(18px, 2.3vw, 24px);
+  font-size: clamp(17px, 2.2vw, 22px);
   font-weight: 600;
   color: var(--primary);
   margin-bottom: 20px;
   letter-spacing: -0.01em;
-  line-height: 1.4;
+  line-height: 1.45;
 }
 
 .home-summary {
@@ -121,7 +121,7 @@
   color: var(--text-sub);
 }
 
-/* Right Column: Profile Portrait in Rounded Glowing Border */
+/* Right Column: Profile Portrait in Glowing Cyan-Blue Pulse Gradient Border */
 .home-portrait-wrapper {
   display: flex;
   justify-content: center;
@@ -135,25 +135,47 @@
   position: relative;
 }
 
+.portrait-avatar-halo-pulse {
+  position: relative;
+  padding: 5px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #00f0ff 0%, #38bdf8 40%, #2563eb 70%, #00f0ff 100%);
+  background-size: 300% 300%;
+  animation: gradient-rotate 4s ease infinite, cyan-blue-pulse 3s ease-in-out infinite alternate;
+  box-shadow: 0 0 35px rgba(56, 189, 248, 0.45), 0 0 70px rgba(37, 99, 235, 0.25);
+}
+
+@keyframes gradient-rotate {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes cyan-blue-pulse {
+  0% {
+    box-shadow: 0 0 25px rgba(56, 189, 248, 0.35), 0 0 50px rgba(37, 99, 235, 0.2);
+  }
+  100% {
+    box-shadow: 0 0 45px rgba(0, 240, 255, 0.6), 0 0 85px rgba(56, 189, 248, 0.4);
+  }
+}
+
 .portrait-avatar-halo {
   width: 320px;
   height: 320px;
   border-radius: 50%;
-  padding: 6px;
-  background: radial-gradient(circle at 50% 35%, rgba(var(--primary-rgb), 0.2) 0%, rgba(var(--primary-rgb), 0.04) 75%);
-  border: 3px solid var(--primary);
-  box-shadow: var(--glowing-ring);
+  background: var(--bg-body);
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
   position: relative;
-  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.portrait-circle-card:hover .portrait-avatar-halo {
-  transform: scale(1.03);
-  box-shadow: 0 0 35px rgba(var(--primary-rgb), 0.5), 0 0 70px rgba(59, 130, 246, 0.3);
 }
 
 .portrait-transparent-img {
@@ -163,6 +185,10 @@
   border-radius: 50%;
   display: block;
   transition: transform 0.4s ease;
+}
+
+.portrait-circle-card:hover .portrait-transparent-img {
+  transform: scale(1.04);
 }
 
 .portrait-caption {
@@ -283,7 +309,7 @@
   }
 
   .home-title-role {
-    font-size: 17px;
+    font-size: 16px;
   }
 
   .home-summary {

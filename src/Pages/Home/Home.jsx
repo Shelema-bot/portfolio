@@ -2,6 +2,8 @@ import "./Home.css";
 import { motion } from "framer-motion";
 import {
   FaGithub,
+  FaLinkedin,
+  FaTelegramPlane,
   FaEnvelope,
   FaPhoneAlt,
   FaArrowRight,
@@ -9,10 +11,29 @@ import {
   FaMapMarkerAlt,
 } from "react-icons/fa";
 import { useLanguage } from "../../context/LanguageContext";
-import profilePhoto from "../../assets/extracted_img_0.png";
+import profilePhoto from "../../assets/input_file_0.png";
+import cvPdf from "../../assets/Shelema_Ageri_CV.pdf";
 
 function Home() {
   const { t } = useLanguage();
+
+  const handleDownloadCV = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await fetch(cvPdf);
+      const blob = await response.blob();
+      const blobUrl = window.URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = blobUrl;
+      link.download = "Shelema_Ageri_CV.pdf";
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(blobUrl);
+    } catch {
+      window.open(cvPdf, "_blank");
+    }
+  };
 
   return (
     <section className="home" id="home">
@@ -42,8 +63,11 @@ function Home() {
             </a>
 
             <a
-              href="./Shelema_Ageri_CV.pdf"
+              href={cvPdf}
               download="Shelema_Ageri_CV.pdf"
+              onClick={handleDownloadCV}
+              target="_blank"
+              rel="noopener noreferrer"
               className="btn btn-secondary"
             >
               <FaFileDownload /> {t.hero.downloadCV}
@@ -54,7 +78,7 @@ function Home() {
             </a>
           </div>
 
-          {/* Direct Professional Channels */}
+          {/* Direct Professional Channels & Socials */}
           <div className="home-contact-strip">
             <a
               href="https://github.com/Shelema-bot"
@@ -64,6 +88,26 @@ function Home() {
               className="contact-pill"
             >
               <FaGithub /> GitHub
+            </a>
+
+            <a
+              href="https://www.linkedin.com/in/shelema-agari-72aa40444/?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_contact_details%3B9CskwHofQQ%2BfhdreaeLRiw%3D%3D"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="LinkedIn Profile"
+              className="contact-pill"
+            >
+              <FaLinkedin /> LinkedIn
+            </a>
+
+            <a
+              href="https://t.me/ijoolleeortodoksii"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Telegram Channel"
+              className="contact-pill"
+            >
+              <FaTelegramPlane /> Telegram
             </a>
 
             <a
@@ -88,26 +132,32 @@ function Home() {
           </div>
         </motion.div>
 
-        {/* Right Column: Profile Portrait in Rounded Glowing Border */}
+        {/* Right Column: Profile Portrait in Glowing Cyan-Blue Pulse Gradient Border with Floating Animation */}
         <motion.div
           className="home-portrait-wrapper"
           initial={{ opacity: 0, scale: 0.92 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.65, delay: 0.15, ease: "easeOut" }}
         >
-          <div className="portrait-circle-card">
-            <div className="portrait-avatar-halo">
-              <img
-                src={profilePhoto}
-                alt="Shelema Ageri - Full Stack MERN Developer"
-                className="portrait-transparent-img"
-              />
+          <motion.div
+            className="portrait-circle-card"
+            animate={{ y: [0, -12, 0] }}
+            transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut" }}
+          >
+            <div className="portrait-avatar-halo-pulse">
+              <div className="portrait-avatar-halo">
+                <img
+                  src={profilePhoto}
+                  alt="Shelema Ageri - Full Stack MERN Developer"
+                  className="portrait-transparent-img"
+                />
+              </div>
             </div>
             <div className="portrait-caption">
               <span className="caption-name">{t.hero.name}</span>
               <span className="caption-role">Full Stack MERN Developer</span>
             </div>
-          </div>
+          </motion.div>
         </motion.div>
       </div>
 

@@ -226,6 +226,113 @@
   margin-top: 10px;
 }
 
+/* Socials / Follow Us Card */
+.contact-socials-card {
+  padding: 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  text-align: left;
+  border-radius: var(--radius-md);
+}
+
+.socials-card-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.socials-badge-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--primary);
+  box-shadow: 0 0 8px var(--primary);
+}
+
+.socials-card-header h4 {
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--text-main);
+  letter-spacing: -0.2px;
+}
+
+.socials-card-desc {
+  font-size: 13px;
+  color: var(--text-muted);
+  line-height: 1.5;
+  margin-bottom: 4px;
+}
+
+.social-chips-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+
+.social-chip {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  color: var(--text-main);
+  font-size: 13px;
+  font-weight: 600;
+  transition: all 0.22s ease;
+  text-decoration: none;
+}
+
+.social-chip-icon {
+  font-size: 16px;
+  transition: transform 0.22s ease;
+  flex-shrink: 0;
+}
+
+.social-chip-title {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.social-chip:hover {
+  transform: translateY(-2px);
+  border-color: var(--primary);
+  background: var(--bg-card-hover);
+}
+
+.social-chip:hover .social-chip-icon {
+  transform: scale(1.15);
+}
+
+.social-chip.linkedin:hover {
+  border-color: #0a66c2;
+  color: #0a66c2;
+}
+
+.social-chip.telegram:hover,
+.social-chip.telegram-bot:hover {
+  border-color: #229ed9;
+  color: #229ed9;
+}
+
+.social-chip.youtube:hover {
+  border-color: #ef4444;
+  color: #ef4444;
+}
+
+.social-chip.tiktok:hover {
+  border-color: #f43f5e;
+  color: #f43f5e;
+}
+
+.social-chip.facebook:hover {
+  border-color: #1877f2;
+  color: #1877f2;
+}
+
 /* Responsive */
 @media (max-width: 960px) {
   .contact-layout {
@@ -244,6 +351,10 @@
   }
 
   .form-group-row {
+    grid-template-columns: 1fr;
+  }
+
+  .social-chips-grid {
     grid-template-columns: 1fr;
   }
 }
