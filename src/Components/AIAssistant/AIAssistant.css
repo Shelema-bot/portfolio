@@ -8,8 +8,8 @@
   font-family: var(--font-main);
 }
 
-/* Floating Trigger Button: Professional Circular AI Orb */
-.ai-trigger-btn {
+/* Floating Trigger Button: Styled Like Native Mobile Assistant App Button */
+.ai-trigger-btn.mobile-assistant-btn {
   position: relative;
   width: 58px;
   height: 58px;
@@ -17,87 +17,140 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, #0284c7 0%, #2563eb 50%, #7c3aed 100%);
-  color: #ffffff;
-  border: 1.5px solid rgba(255, 255, 255, 0.35);
-  box-shadow:
-    0 10px 25px -4px rgba(14, 165, 233, 0.5),
-    0 4px 14px rgba(124, 58, 237, 0.35),
-    inset 0 1px 1px rgba(255, 255, 255, 0.5);
+  background: #080d1a;
+  border: none;
   cursor: pointer;
   outline: none;
+  padding: 3px;
+  box-shadow:
+    0 10px 28px -4px rgba(56, 189, 248, 0.5),
+    0 4px 18px rgba(192, 132, 252, 0.4),
+    0 0 25px rgba(244, 63, 94, 0.25);
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   user-select: none;
 }
 
-.ai-trigger-btn:hover {
+.ai-trigger-btn.mobile-assistant-btn:hover {
   box-shadow:
-    0 14px 32px -4px rgba(14, 165, 233, 0.7),
-    0 0 24px rgba(124, 58, 237, 0.55),
-    inset 0 1px 2px rgba(255, 255, 255, 0.8);
+    0 14px 34px -2px rgba(56, 189, 248, 0.75),
+    0 0 32px rgba(192, 132, 252, 0.65),
+    0 0 40px rgba(244, 63, 94, 0.35);
 }
 
-.ai-btn-glow-ring {
+/* Ambient Pulsing Glow Aura */
+.mobile-assistant-aura {
   position: absolute;
   inset: -6px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(14, 165, 233, 0.55) 0%, rgba(124, 58, 237, 0.25) 50%, transparent 72%);
+  background: radial-gradient(
+    circle,
+    rgba(56, 189, 248, 0.65) 0%,
+    rgba(192, 132, 252, 0.45) 45%,
+    rgba(244, 63, 94, 0.2) 70%,
+    transparent 80%
+  );
   filter: blur(8px);
-  animation: ai-glow-breathe 2.8s ease-in-out infinite alternate;
+  animation: assistant-aura-breathe 2.8s ease-in-out infinite alternate;
   pointer-events: none;
   z-index: 0;
 }
 
-@keyframes ai-glow-breathe {
+@keyframes assistant-aura-breathe {
   0% {
-    transform: scale(0.92);
-    opacity: 0.45;
+    transform: scale(0.9);
+    opacity: 0.5;
   }
   100% {
-    transform: scale(1.18);
-    opacity: 0.85;
+    transform: scale(1.22);
+    opacity: 0.95;
   }
 }
 
-.ai-btn-inner {
+/* Glowing Multi-Color Chromatic Ring (Gemini & Mobile Assistant Style) */
+.mobile-assistant-chromatic-ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: conic-gradient(
+    from 0deg,
+    #38bdf8 0%,
+    #818cf8 25%,
+    #c084fc 50%,
+    #f43f5e 72%,
+    #fbbf24 88%,
+    #38bdf8 100%
+  );
+  animation: assistant-chromatic-spin 3.8s linear infinite;
+  z-index: 1;
+}
+
+@keyframes assistant-chromatic-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Dark Glass Core Inside Ring */
+.mobile-assistant-core {
   position: relative;
   z-index: 2;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #131c31 0%, #060b17 100%);
+  border: 1px solid rgba(255, 255, 255, 0.2);
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 100%;
-  height: 100%;
+  overflow: hidden;
 }
 
-.ai-bot-icon {
-  font-size: 24px;
-  color: #ffffff;
-  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.35));
+/* Iconic 4-Point Gemini Sparkle Star */
+.assistant-sparkle-svg {
+  width: 27px;
+  height: 27px;
+  filter: drop-shadow(0 0 8px rgba(56, 189, 248, 0.9));
+  animation: assistant-star-pulse 2.6s ease-in-out infinite alternate;
   transition: transform 0.3s ease;
 }
 
-.ai-trigger-btn:hover .ai-bot-icon {
-  transform: scale(1.08);
+.ai-trigger-btn:hover .assistant-sparkle-svg {
+  transform: scale(1.15) rotate(8deg);
 }
 
-.ai-sparkle-badge {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  font-size: 11px;
-  color: #fde047;
-  filter: drop-shadow(0 0 6px rgba(253, 224, 71, 0.85));
-  animation: ai-sparkle-spin 4s linear infinite;
-}
-
-@keyframes ai-sparkle-spin {
-  0%, 100% {
-    transform: scale(1) rotate(0deg);
-    opacity: 0.9;
+@keyframes assistant-star-pulse {
+  0% {
+    transform: scale(0.92) rotate(0deg);
   }
   50% {
-    transform: scale(1.25) rotate(180deg);
+    transform: scale(1.08) rotate(4deg);
+  }
+  100% {
+    transform: scale(0.96) rotate(-3deg);
+  }
+}
+
+.assistant-accent-sparkle {
+  position: absolute;
+  top: 9px;
+  right: 10px;
+  font-size: 10px;
+  color: #fbbf24;
+  filter: drop-shadow(0 0 6px rgba(251, 191, 36, 0.9));
+  animation: accent-sparkle-twinkle 2s ease-in-out infinite alternate;
+}
+
+@keyframes accent-sparkle-twinkle {
+  0% {
+    opacity: 0.4;
+    transform: scale(0.8);
+  }
+  100% {
     opacity: 1;
+    transform: scale(1.25);
   }
 }
 
@@ -564,13 +617,14 @@
     right: 16px;
   }
 
-  .ai-trigger-btn {
+  .ai-trigger-btn.mobile-assistant-btn {
     width: 52px;
     height: 52px;
   }
 
-  .ai-bot-icon {
-    font-size: 22px;
+  .assistant-sparkle-svg {
+    width: 24px;
+    height: 24px;
   }
 
   .ai-btn-tooltip {

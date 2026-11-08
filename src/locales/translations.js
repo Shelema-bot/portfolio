@@ -3,8 +3,9 @@ export const translations = {
     nav: {
       home: "Home",
       about: "About",
-      services: "Services",
       skills: "Skills",
+      work: "Work & Projects",
+      services: "Services",
       projects: "Projects",
       experience: "Experience",
       contact: "Contact",
@@ -12,6 +13,17 @@ export const translations = {
       langSelect: "Language",
       themeLight: "Light Mode",
       themeDark: "Dark Mode",
+    },
+    workHub: {
+      badge: "Portfolio & Milestones",
+      title: "Featured",
+      titleSpan: "Work & Career",
+      subtitle: "Explore high-performance full-stack applications, career milestones, and engineering services.",
+      tabs: {
+        projects: "Projects Showcase",
+        experience: "Experience & Education",
+        services: "Professional Services",
+      },
     },
     hero: {
       status: "Available for Full Stack Developer Roles",
@@ -379,8 +391,9 @@ export const translations = {
     nav: {
       home: "Fuula Duraa",
       about: "Waa'ee Koo",
-      services: "Tajaajila",
       skills: "Dandeettii",
+      work: "Hojii & Pirojektii",
+      services: "Tajaajila",
       projects: "Pirojektii",
       experience: "Muuxannoo",
       contact: "Qunnamtii",
@@ -388,6 +401,17 @@ export const translations = {
       langSelect: "Afaan",
       themeLight: "Ifaa",
       themeDark: "Dukkana",
+    },
+    workHub: {
+      badge: "Pirojektii fi Muuxannoo",
+      title: "Hojiiwwan fi",
+      titleSpan: "Muuxannoo",
+      subtitle: "Pirojektoota Full-Stack, muuxannoo hojii fi tajaajiloota misoomaa koo daawwadhaa.",
+      tabs: {
+        projects: "Pirojektoota Ijoo",
+        experience: "Muuxannoo & Barnoota",
+        services: "Tajaajila Misoomaa",
+      },
     },
     hero: {
       status: "Hojiiwwan Full Stack Developer qophii dha",
@@ -752,8 +776,9 @@ export const translations = {
     nav: {
       home: "ዋና ገጽ",
       about: "ስለ እኔ",
-      services: "አገልግሎቶች",
       skills: "ክህሎቶች",
+      work: "ስራዎችና ፕሮጀክቶች",
+      services: "አገልግሎቶች",
       projects: "ፕሮጀክቶች",
       experience: "የስራ ልምድ",
       contact: "አድራሻ",
@@ -761,6 +786,17 @@ export const translations = {
       langSelect: "ቋንቋ",
       themeLight: "ብርሃን",
       themeDark: "ጨለማ",
+    },
+    workHub: {
+      badge: "ፖርትፎሊዮ እና ልምድ",
+      title: "ስራዎች እና",
+      titleSpan: "የስራ ልምድ",
+      subtitle: "የተሰሩ ሙሉ-ስታክ ሲስተሞች፣ የስራና የትምህርት ልምድ፣ እና የምሰጣቸው የሶፍትዌር አገልግሎቶች።",
+      tabs: {
+        projects: "ዋና ዋና ፕሮጀክቶች",
+        experience: "የስራና የትምህርት ልምድ",
+        services: "የሙያ አገልግሎቶች",
+      },
     },
     hero: {
       status: "ለFull Stack Developer ስራ ዝግጁ ነኝ",

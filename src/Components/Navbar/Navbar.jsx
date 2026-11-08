@@ -24,7 +24,7 @@ function Navbar() {
       }
 
       // Update active section based on scroll position
-      const sections = ["home", "about", "services", "skills", "projects", "experience", "contact"];
+      const sections = ["home", "about", "skills", "work", "contact"];
       const scrollPosition = window.scrollY + 220;
 
       for (const section of sections) {
@@ -51,7 +51,7 @@ function Navbar() {
         setLangDropdownOpen(false);
       }
       if (
-        !e.target.closest(".nav-links") &&
+        !e.target.closest(".navbar-bottom-row") &&
         !e.target.closest(".menu-toggle")
       ) {
         setMenuOpen(false);
@@ -64,10 +64,8 @@ function Navbar() {
   const navLinks = [
     { name: t.nav.home, href: "#home", id: "home" },
     { name: t.nav.about, href: "#about", id: "about" },
-    { name: t.nav.services, href: "#services", id: "services" },
     { name: t.nav.skills, href: "#skills", id: "skills" },
-    { name: t.nav.projects, href: "#projects", id: "projects" },
-    { name: t.nav.experience, href: "#experience", id: "experience" },
+    { name: t.nav.work || "Work & Projects", href: "#work", id: "work" },
     { name: t.nav.contact, href: "#contact", id: "contact" },
   ];
 
@@ -101,21 +99,107 @@ function Navbar() {
   return (
     <>
       <header className={`navbar-wrapper ${scrolled ? "scrolled" : ""}`}>
-        <nav className="navbar">
-          {/* Brand Logo with Rounded Photo Avatar */}
-          <a href="#home" className="logo" onClick={() => { setMenuOpen(false); setLangDropdownOpen(false); }}>
-            <div className="logo-avatar-frame">
-              <img src={profilePhoto} alt="Shelema Ageri" className="logo-avatar" />
-            </div>
-            <span className="logo-text">Shelema</span>
-            <span className="logo-dot">.</span>
-            <span className="logo-highlight">dev</span>
-          </a>
+        {/* ROW 1: Brand Logo on Left, Language / Theme / Resume on Right (As pictured) */}
+        <div className="navbar-top-row">
+          <div className="navbar-top-container">
+            {/* Brand Logo with Rounded Photo Avatar */}
+            <a
+              href="#home"
+              className="logo"
+              onClick={() => {
+                setMenuOpen(false);
+                setLangDropdownOpen(false);
+              }}
+            >
+              <div className="logo-avatar-frame">
+                <img src={profilePhoto} alt="Shelema Ageri" className="logo-avatar" />
+              </div>
+              <span className="logo-text">Shelema</span>
+              <span className="logo-dot">.</span>
+              <span className="logo-highlight">dev</span>
+            </a>
 
-          {/* Right Actions */}
-          <div className="nav-actions">
-            {/* Main Navigation Links */}
-            <ul className={`nav-links ${menuOpen ? "active" : ""}`}>
+            {/* Row 1 Actions: Language, Theme, Resume CV, Mobile Toggle */}
+            <div className="navbar-top-controls">
+              {/* Language Switcher Selector (Top Bar) */}
+              <div className="lang-switcher">
+                <button
+                  className="lang-btn"
+                  onClick={() => {
+                    setLangDropdownOpen(!langDropdownOpen);
+                    setMenuOpen(false);
+                  }}
+                  aria-label="Select Language"
+                  title="Select Language"
+                >
+                  <FaGlobe className="lang-icon" />
+                  <span className="lang-current">{currentLang.short}</span>
+                </button>
+
+                {langDropdownOpen && (
+                  <div className="lang-dropdown">
+                    {languages.map((l) => (
+                      <button
+                        key={l.code}
+                        className={`lang-option ${lang === l.code ? "active" : ""}`}
+                        onClick={() => {
+                          setLang(l.code);
+                          setLangDropdownOpen(false);
+                        }}
+                      >
+                        <span className="lang-code-tag">{l.short}</span>
+                        <span className="lang-name-tag">{l.label}</span>
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              {/* Theme Toggle Button (Light & Dark Mode) */}
+              <button
+                className="theme-toggle-btn"
+                onClick={toggleTheme}
+                aria-label={`Switch to ${isDark ? "Light" : "Dark"} Mode`}
+                title={isDark ? t.nav.themeLight : t.nav.themeDark}
+              >
+                {isDark ? (
+                  <FaSun className="theme-icon sun" />
+                ) : (
+                  <FaMoon className="theme-icon moon" />
+                )}
+              </button>
+
+              {/* Desktop CV Download */}
+              <a
+                href={cvPdf}
+                download="Shelema_Ageri_CV.pdf"
+                onClick={handleDownloadCV}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn btn-secondary desktop-cv-btn"
+              >
+                <FaFileAlt /> {t.nav.resumeBtn}
+              </a>
+
+              {/* Mobile Hamburger Toggle */}
+              <button
+                className="menu-toggle"
+                onClick={() => {
+                  setMenuOpen(!menuOpen);
+                  setLangDropdownOpen(false);
+                }}
+                aria-label="Toggle navigation menu"
+              >
+                {menuOpen ? <FaTimes /> : <FaBars />}
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {/* ROW 2: Clean Navigation Links Bar */}
+        <nav className={`navbar-bottom-row ${menuOpen ? "mobile-active" : ""}`}>
+          <div className="navbar-bottom-container">
+            <ul className="nav-links">
               {navLinks.map((link) => (
                 <li key={link.id}>
                   <a
@@ -164,78 +248,6 @@ function Navbar() {
                 </div>
               </li>
             </ul>
-
-            {/* Language Switcher Selector (Top Bar) */}
-            <div className="lang-switcher">
-              <button
-                className="lang-btn"
-                onClick={() => {
-                  setLangDropdownOpen(!langDropdownOpen);
-                  setMenuOpen(false);
-                }}
-                aria-label="Select Language"
-                title="Select Language"
-              >
-                <FaGlobe className="lang-icon" />
-                <span className="lang-current">{currentLang.short}</span>
-              </button>
-
-              {langDropdownOpen && (
-                <div className="lang-dropdown">
-                  {languages.map((l) => (
-                    <button
-                      key={l.code}
-                      className={`lang-option ${lang === l.code ? "active" : ""}`}
-                      onClick={() => {
-                        setLang(l.code);
-                        setLangDropdownOpen(false);
-                      }}
-                    >
-                      <span className="lang-code-tag">{l.short}</span>
-                      <span className="lang-name-tag">{l.label}</span>
-                    </button>
-                  ))}
-                </div>
-              )}
-            </div>
-
-            {/* Theme Toggle Button (Light & Dark Mode) */}
-            <button
-              className="theme-toggle-btn"
-              onClick={toggleTheme}
-              aria-label={`Switch to ${isDark ? "Light" : "Dark"} Mode`}
-              title={isDark ? t.nav.themeLight : t.nav.themeDark}
-            >
-              {isDark ? (
-                <FaSun className="theme-icon sun" />
-              ) : (
-                <FaMoon className="theme-icon moon" />
-              )}
-            </button>
-
-            {/* Desktop CV Download */}
-            <a
-              href={cvPdf}
-              download="Shelema_Ageri_CV.pdf"
-              onClick={handleDownloadCV}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn btn-secondary desktop-cv-btn"
-            >
-              <FaFileAlt /> {t.nav.resumeBtn}
-            </a>
-
-            {/* Mobile Hamburger Toggle */}
-            <button
-              className="menu-toggle"
-              onClick={() => {
-                setMenuOpen(!menuOpen);
-                setLangDropdownOpen(false);
-              }}
-              aria-label="Toggle navigation menu"
-            >
-              {menuOpen ? <FaTimes /> : <FaBars />}
-            </button>
           </div>
         </nav>
       </header>

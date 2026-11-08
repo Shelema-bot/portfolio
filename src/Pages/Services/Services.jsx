@@ -10,7 +10,7 @@ import {
 } from "react-icons/fa";
 import { useLanguage } from "../../context/LanguageContext";
 
-function Services() {
+function Services({ hideHeader = false }) {
   const { t } = useLanguage();
 
   const serviceIcons = {
@@ -21,17 +21,19 @@ function Services() {
   };
 
   return (
-    <section className="services" id="services">
-      <div className="section-header">
-        <div className="section-badge">
-          <span className="dot"></span>
-          <span>{t.services.badge}</span>
+    <section className={`services ${hideHeader ? "hub-subview" : ""}`} id={hideHeader ? undefined : "services"}>
+      {!hideHeader && (
+        <div className="section-header">
+          <div className="section-badge">
+            <span className="dot"></span>
+            <span>{t.services.badge}</span>
+          </div>
+          <h2 className="section-title">
+            {t.services.title} <span>{t.services.titleSpan}</span>
+          </h2>
+          <p className="section-desc">{t.services.subtitle}</p>
         </div>
-        <h2 className="section-title">
-          {t.services.title} <span>{t.services.titleSpan}</span>
-        </h2>
-        <p className="section-desc">{t.services.subtitle}</p>
-      </div>
+      )}
 
       <div className="services-grid">
         {t.services.cards.map((service, index) => (

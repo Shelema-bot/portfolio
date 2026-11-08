@@ -51,16 +51,10 @@ function Footer() {
               <a href="#about">{t.nav.about}</a>
             </li>
             <li>
-              <a href="#services">{t.nav.services}</a>
-            </li>
-            <li>
               <a href="#skills">{t.nav.skills}</a>
             </li>
             <li>
-              <a href="#projects">{t.nav.projects}</a>
-            </li>
-            <li>
-              <a href="#experience">{t.nav.experience}</a>
+              <a href="#work">{t.nav.work || "Work & Projects"}</a>
             </li>
             <li>
               <a href="#contact">{t.nav.contact}</a>

@@ -26,7 +26,7 @@ import { useLanguage } from "../../context/LanguageContext";
 import techstorePreview from "../../assets/techstore_preview.jpg";
 import telegramBotPreview from "../../assets/telegram_bot_preview.png";
 
-function Projects() {
+function Projects({ hideHeader = false }) {
   const [filter, setFilter] = useState("all");
   const [currentPage, setCurrentPage] = useState(1);
   const [direction, setDirection] = useState(0);
@@ -236,17 +236,19 @@ function Projects() {
   };
 
   return (
-    <section className="projects" id="projects">
-      <div className="section-header">
-        <div className="section-badge">
-          <span className="dot"></span>
-          <span>{t.projects.badge}</span>
+    <section className={`projects ${hideHeader ? "hub-subview" : ""}`} id={hideHeader ? undefined : "projects"}>
+      {!hideHeader && (
+        <div className="section-header">
+          <div className="section-badge">
+            <span className="dot"></span>
+            <span>{t.projects.badge}</span>
+          </div>
+          <h2 className="section-title">
+            {t.projects.title} <span>{t.projects.titleSpan}</span>
+          </h2>
+          <p className="section-desc">{t.projects.subtitle}</p>
         </div>
-        <h2 className="section-title">
-          {t.projects.title} <span>{t.projects.titleSpan}</span>
-        </h2>
-        <p className="section-desc">{t.projects.subtitle}</p>
-      </div>
+      )}
 
       {/* Filter Tabs with Dynamic Project Count Chips */}
       <div className="project-filter-tabs">

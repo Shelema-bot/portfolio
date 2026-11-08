@@ -293,30 +293,67 @@ export default function AIAssistant() {
 
   return (
     <div className="ai-assistant-container">
-      {/* Floating Trigger Button */}
+      {/* Floating Trigger Button: Styled like Native Mobile Assistant App */}
       <AnimatePresence>
         {!isOpen && (
           <motion.button
-            className="ai-trigger-btn"
+            className="ai-trigger-btn mobile-assistant-btn"
             onClick={handleOpen}
             initial={{ scale: 0, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0, opacity: 0 }}
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.92 }}
+            whileHover={{ scale: 1.08 }}
+            whileTap={{ scale: 0.9 }}
             aria-label={t.ai.drawerTitle || "Open Shelema AI Assistant"}
           >
-            <span className="ai-btn-glow-ring"></span>
-            <div className="ai-btn-inner">
-              <FaRobot className="ai-bot-icon" />
-              <FaMagic className="ai-sparkle-badge" />
+            {/* Ambient Multi-Color Chromatic Aura */}
+            <span className="mobile-assistant-aura"></span>
+
+            {/* Glowing Chromatic Ring */}
+            <span className="mobile-assistant-chromatic-ring"></span>
+
+            {/* Dark Glass Core */}
+            <div className="mobile-assistant-core">
+              {/* Native Assistant 4-Point Sparkle Star SVG */}
+              <svg
+                className="assistant-sparkle-svg"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <defs>
+                  <linearGradient
+                    id="assistantGeminiGrad"
+                    x1="0%"
+                    y1="0%"
+                    x2="100%"
+                    y2="100%"
+                  >
+                    <stop offset="0%" stopColor="#38bdf8" />
+                    <stop offset="35%" stopColor="#818cf8" />
+                    <stop offset="70%" stopColor="#c084fc" />
+                    <stop offset="100%" stopColor="#f43f5e" />
+                  </linearGradient>
+                </defs>
+                <path
+                  d="M12 2C12.5 7.5 16.5 11.5 22 12C16.5 12.5 12.5 16.5 12 22C11.5 16.5 7.5 12.5 2 12C7.5 11.5 11.5 7.5 12 2Z"
+                  fill="url(#assistantGeminiGrad)"
+                />
+              </svg>
+
+              {/* Companion Accent Sparkle */}
+              <span className="assistant-accent-sparkle">✦</span>
             </div>
+
+            {/* Online Status Dot */}
             <span className="ai-status-indicator" title="Online">
               <span className="ai-status-ping"></span>
             </span>
+
+            {/* Tooltip on Desktop */}
             <div className="ai-btn-tooltip">
               <span className="ai-tooltip-dot"></span>
-              <span>{t.ai.drawerTitle || "Shelema AI"}</span>
+              <span>{t.ai.drawerTitle || "Shelema AI Assistant"}</span>
             </div>
           </motion.button>
         )}
