@@ -55,13 +55,60 @@
   margin-bottom: 10px;
 }
 
+.home-role-container {
+  margin-bottom: 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
 .home-title-role {
-  font-size: clamp(17px, 2.2vw, 22px);
-  font-weight: 600;
+  font-size: clamp(20px, 2.6vw, 28px);
+  font-weight: 700;
   color: var(--primary);
-  margin-bottom: 20px;
+  margin-bottom: 0;
   letter-spacing: -0.01em;
-  line-height: 1.45;
+  line-height: 1.35;
+  display: flex;
+  align-items: center;
+  min-height: 38px;
+}
+
+.typewriter-text {
+  background: linear-gradient(135deg, var(--primary) 0%, #38bdf8 60%, #818cf8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+}
+
+.typewriter-cursor {
+  display: inline-block;
+  width: 2.5px;
+  height: 1.15em;
+  background-color: var(--primary);
+  margin-left: 4px;
+  border-radius: 1px;
+  animation: cursor-blink 0.9s infinite;
+  box-shadow: 0 0 8px rgba(var(--primary-rgb), 0.6);
+}
+
+@keyframes cursor-blink {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+.home-role-sub {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--text-muted);
+  letter-spacing: 0.3px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
 }
 
 .home-summary {

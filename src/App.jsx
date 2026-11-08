@@ -10,12 +10,14 @@ import Experience from "./Pages/Experience/Experience";
 import Contact from "./Pages/Contact/Contact";
 import Footer from "./Components/Footer/Footer";
 import AIAssistant from "./Components/AIAssistant/AIAssistant";
+import ScrollProgress from "./Components/ScrollProgress/ScrollProgress";
 
 function App() {
   return (
     <ThemeProvider>
       <LanguageProvider>
         <div className="portfolio-app">
+          <ScrollProgress />
           <Navbar />
           <main>
             <Home />

@@ -261,7 +261,8 @@
   border-radius: var(--radius-sm);
 }
 
-.mobile-cv-item {
+.mobile-cv-item,
+.mobile-lang-item {
   display: none;
 }
 

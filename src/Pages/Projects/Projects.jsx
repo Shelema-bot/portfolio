@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./Projects.css";
 import { motion, AnimatePresence } from "framer-motion";
 import {
@@ -18,6 +18,9 @@ import {
   FaPause,
   FaStepForward,
   FaCheckCircle,
+  FaChevronLeft,
+  FaChevronRight,
+  FaExpandAlt,
 } from "react-icons/fa";
 import { useLanguage } from "../../context/LanguageContext";
 import techstorePreview from "../../assets/techstore_preview.jpg";
@@ -25,8 +28,13 @@ import telegramBotPreview from "../../assets/telegram_bot_preview.png";
 
 function Projects() {
   const [filter, setFilter] = useState("all");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [direction, setDirection] = useState(0);
   const [activeModalProject, setActiveModalProject] = useState(null);
   const [activeVideoProject, setActiveVideoProject] = useState(null);
+  const [zoomImage, setZoomImage] = useState(null);
+  const [isAutoPlay, setIsAutoPlay] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
   const [isPlaying, setIsPlaying] = useState(true);
   const [currentStepIndex, setCurrentStepIndex] = useState(0);
 
@@ -152,6 +160,75 @@ function Projects() {
   const filteredProjects =
     filter === "all" ? projects : projects.filter((p) => p.category === filter);
 
+  const getCategoryCount = (categoryId) => {
+    if (categoryId === "all") return projects.length;
+    return projects.filter((p) => p.category === categoryId).length;
+  };
+
+  const projectsPerPage = 1;
+  const totalPages = Math.max(1, Math.ceil(filteredProjects.length / projectsPerPage));
+  const safePage = Math.min(currentPage, totalPages);
+  const currentProject = filteredProjects[safePage - 1];
+
+  // Auto-play presentation timer (advances every 6.5s, pauses on hover or modal)
+  useEffect(() => {
+    if (!isAutoPlay || isHovered || activeModalProject || activeVideoProject || zoomImage) return;
+
+    const interval = setInterval(() => {
+      setDirection(1);
+      setCurrentPage((prev) => (prev >= totalPages ? 1 : prev + 1));
+    }, 6500);
+
+    return () => clearInterval(interval);
+  }, [isAutoPlay, isHovered, totalPages, activeModalProject, activeVideoProject, zoomImage]);
+
+  const handleFilterChange = (tabId) => {
+    setFilter(tabId);
+    setCurrentPage(1);
+    setDirection(0);
+  };
+
+  const handlePrevPage = () => {
+    if (safePage > 1) {
+      setDirection(-1);
+      setCurrentPage((prev) => prev - 1);
+    }
+  };
+
+  const handleNextPage = () => {
+    if (safePage < totalPages) {
+      setDirection(1);
+      setCurrentPage((prev) => prev + 1);
+    }
+  };
+
+  const handlePageSelect = (pageNumber) => {
+    if (pageNumber !== safePage) {
+      setDirection(pageNumber > safePage ? 1 : -1);
+      setCurrentPage(pageNumber);
+    }
+  };
+
+  // Keyboard navigation support: Left / Right arrow keys
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (activeModalProject || activeVideoProject) return;
+      if (e.key === "ArrowLeft") {
+        if (safePage > 1) {
+          setDirection(-1);
+          setCurrentPage((prev) => prev - 1);
+        }
+      } else if (e.key === "ArrowRight") {
+        if (safePage < totalPages) {
+          setDirection(1);
+          setCurrentPage((prev) => prev + 1);
+        }
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [safePage, totalPages, activeModalProject, activeVideoProject]);
+
   const openVideoModal = (project) => {
     setActiveVideoProject(project);
     setCurrentStepIndex(0);
@@ -171,40 +248,90 @@ function Projects() {
         <p className="section-desc">{t.projects.subtitle}</p>
       </div>
 
-      {/* Filter Tabs */}
+      {/* Filter Tabs with Dynamic Project Count Chips */}
       <div className="project-filter-tabs">
         {filterTabs.map((tab) => (
           <button
             key={tab.id}
             className={`filter-btn ${filter === tab.id ? "active" : ""}`}
-            onClick={() => setFilter(tab.id)}
+            onClick={() => handleFilterChange(tab.id)}
           >
-            {tab.label}
+            <span>{tab.label}</span>
+            <span className="filter-count-chip">{getCategoryCount(tab.id)}</span>
           </button>
         ))}
       </div>
 
-      {/* Projects List */}
+      {/* Projects List: Single Row Showcase with Animated Slide Pagination */}
       <div className="projects-container">
-        <AnimatePresence>
-          {filteredProjects.map((project) => (
+        <AnimatePresence mode="wait" custom={direction}>
+          {currentProject && (
             <motion.div
-              layout
-              key={project.id}
-              className={`project-showcase-card glass-card ${project.featured ? "featured" : ""}`}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: 10 }}
-              transition={{ duration: 0.3 }}
+              key={currentProject.id}
+              custom={direction}
+              variants={{
+                enter: (dir) => ({
+                  x: dir > 0 ? 60 : dir < 0 ? -60 : 0,
+                  opacity: 0,
+                  scale: 0.98,
+                }),
+                center: {
+                  x: 0,
+                  opacity: 1,
+                  scale: 1,
+                  transition: { duration: 0.32, ease: "easeOut" },
+                },
+                exit: (dir) => ({
+                  x: dir > 0 ? -60 : dir < 0 ? 60 : 0,
+                  opacity: 0,
+                  scale: 0.98,
+                  transition: { duration: 0.22, ease: "easeIn" },
+                }),
+              }}
+              initial="enter"
+              animate="center"
+              exit="exit"
+              onMouseEnter={() => setIsHovered(true)}
+              onMouseLeave={() => setIsHovered(false)}
+              className="project-showcase-card glass-card featured"
             >
-              {project.image && (
-                <div className={`project-media ${project.isTelegram ? "telegram-media-box" : ""}`}>
-                  <img src={project.image} alt={project.title} className="project-cover-img" />
-                  <span className="media-badge">{project.label}</span>
-                  {project.hasVideo && (
+              {currentProject.image ? (
+                <div className={`project-media ${currentProject.isTelegram ? "telegram-media-box" : ""}`}>
+                  <img
+                    src={currentProject.image}
+                    alt={currentProject.title}
+                    className="project-cover-img"
+                    onClick={() =>
+                      setZoomImage({
+                        src: currentProject.image,
+                        title: currentProject.title,
+                        label: currentProject.label,
+                      })
+                    }
+                    title="Click to zoom screenshot"
+                  />
+                  <span className="media-badge">{currentProject.label}</span>
+
+                  {/* Quick Zoom Overlay Button */}
+                  <button
+                    className="media-zoom-overlay-btn"
+                    onClick={() =>
+                      setZoomImage({
+                        src: currentProject.image,
+                        title: currentProject.title,
+                        label: currentProject.label,
+                      })
+                    }
+                    title="Zoom Screenshot"
+                    aria-label="Zoom Screenshot"
+                  >
+                    <FaExpandAlt />
+                  </button>
+
+                  {currentProject.hasVideo && (
                     <button
                       className="media-play-overlay-btn"
-                      onClick={() => openVideoModal(project)}
+                      onClick={() => openVideoModal(currentProject)}
                       title={t.projects.watchVideo}
                     >
                       <FaPlay className="play-icon" />
@@ -212,21 +339,77 @@ function Projects() {
                     </button>
                   )}
                 </div>
+              ) : (
+                <div className="project-media project-code-media">
+                  <div className="code-media-header">
+                    <div className="code-dots">
+                      <span className="code-dot red"></span>
+                      <span className="code-dot yellow"></span>
+                      <span className="code-dot green"></span>
+                    </div>
+                    <span className="code-filename">
+                      {currentProject.id === "payment-api"
+                        ? "payment_gateway.controller.js"
+                        : "TaskWorkflowBoard.jsx"}
+                    </span>
+                  </div>
+                  <div className="code-media-body">
+                    {currentProject.id === "payment-api" ? (
+                      <pre className="code-snippet-text">
+                        <code>{`// RESTful Multi-Payment Gateway Architecture
+router.post('/api/v1/checkout/charge',
+  authenticateJWT,
+  validateTransactionPayload,
+  async (req, res) => {
+    const { amount, currency, method } = req.body;
+    
+    // Gateway Dispatch (Chapa, Telebirr, CBE)
+    const tx = await PaymentGateway.process({
+      userId: req.user.id,
+      amount,
+      currency: "ETB",
+      provider: method // Chapa | Telebirr | CBE
+    });
+
+    res.status(200).json({ status: "SUCCESS", tx });
+});`}</code>
+                      </pre>
+                    ) : (
+                      <pre className="code-snippet-text">
+                        <code>{`// TaskFlow Interactive Workflow State
+export function TaskBoard({ boardId }) {
+  const [tasks, setTasks] = useState([]);
+  const [columns] = useState([
+    "Backlog", "In-Progress", "Code Review", "Done"
+  ]);
+
+  const handleTaskTransition = (taskId, targetCol) => {
+    updateTaskColumn(taskId, targetCol);
+    syncLocalStorage(tasks);
+  };
+
+  return <KanbanBoard columns={columns} onDrop={handleTaskTransition} />;
+}`}</code>
+                      </pre>
+                    )}
+                  </div>
+                  <span className="media-badge">{currentProject.label}</span>
+                </div>
               )}
 
               <div className="project-details">
                 <div className="project-header-bar">
-                  <span className="project-type-tag">{project.label}</span>
-                  <span className="project-cat-badge">{project.category}</span>
+                  <span className="project-type-tag">{currentProject.label}</span>
+                  <span className="project-cat-badge">{currentProject.category}</span>
                 </div>
 
-                <h3 className="project-heading">{project.title}</h3>
-                <p className="project-tagline">{project.tagline}</p>
-                <p className="project-summary">{project.description}</p>
+                <h3 className="project-heading">{currentProject.title}</h3>
+                <p className="project-tagline">{currentProject.tagline}</p>
+                <p className="project-summary">{currentProject.description}</p>
 
                 {/* Key Features */}
                 <div className="project-feature-list">
-                  {project.features.map((feat, idx) => (
+                  {currentProject.features.map((feat, idx) => (
                     <div key={idx} className="feature-item">
                       <span className="feature-icon">{feat.icon}</span>
                       <span>{feat.text}</span>
@@ -236,7 +419,7 @@ function Projects() {
 
                 {/* Tech Pills */}
                 <div className="tech-badge-container">
-                  {project.technologies.map((tech, idx) => (
+                  {currentProject.technologies.map((tech, idx) => (
                     <span key={idx} className="tech-pill">
                       {tech}
                     </span>
@@ -246,18 +429,18 @@ function Projects() {
                 {/* Actions */}
                 <div className="project-btn-group">
                   <a
-                    href={project.liveUrl}
+                    href={currentProject.liveUrl}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="btn btn-primary project-action-btn"
                   >
-                    {project.isTelegram ? <FaTelegramPlane /> : <FaExternalLinkAlt />}
-                    {project.liveBtnLabel}
+                    {currentProject.isTelegram ? <FaTelegramPlane /> : <FaExternalLinkAlt />}
+                    {currentProject.liveBtnLabel}
                   </a>
 
-                  {project.hasVideo && (
+                  {currentProject.hasVideo && (
                     <button
-                      onClick={() => openVideoModal(project)}
+                      onClick={() => openVideoModal(currentProject)}
                       className="btn btn-secondary project-action-btn video-action-btn"
                     >
                       <FaPlay /> {t.projects.watchVideo}
@@ -265,7 +448,7 @@ function Projects() {
                   )}
 
                   <a
-                    href={project.githubUrl}
+                    href={currentProject.githubUrl}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="btn btn-secondary project-action-btn"
@@ -274,7 +457,7 @@ function Projects() {
                   </a>
 
                   <button
-                    onClick={() => setActiveModalProject(project)}
+                    onClick={() => setActiveModalProject(currentProject)}
                     className="btn btn-secondary project-action-btn details-btn"
                   >
                     <FaInfoCircle /> {t.projects.detailsBtn}
@@ -282,9 +465,80 @@ function Projects() {
                 </div>
               </div>
             </motion.div>
-          ))}
+          )}
         </AnimatePresence>
       </div>
+
+      {/* Projects Pagination Bar - One Row with Modern Navigation */}
+      {totalPages > 1 && (
+        <div className="project-pagination-wrapper">
+          <div className="pagination-info">
+            <span className="pagination-count-badge">
+              {t.projects.paginationOf || "Project"} {safePage} {t.projects.paginationOfTotal || "of"} {totalPages}
+            </span>
+            <span className="pagination-category-pill">{currentProject.label}</span>
+
+            {/* Auto-Play Showcase Toggle Button */}
+            <button
+              className={`pagination-autoplay-toggle ${isAutoPlay ? "active" : ""}`}
+              onClick={() => setIsAutoPlay(!isAutoPlay)}
+              title={isAutoPlay ? "Pause Auto-Play" : "Start Auto-Play Presentation"}
+              aria-label="Toggle Auto-Play"
+            >
+              {isAutoPlay ? <FaPause className="autoplay-icon" /> : <FaPlay className="autoplay-icon" />}
+              <span>{isAutoPlay ? "Auto-Play On" : "Auto-Play"}</span>
+              {isAutoPlay && !isHovered && <span className="autoplay-pulse-ring"></span>}
+            </button>
+          </div>
+
+          <div className="pagination-controls">
+            <button
+              className="pagination-nav-btn prev-btn"
+              onClick={handlePrevPage}
+              disabled={safePage === 1}
+              aria-label={t.projects.paginationPrev || "Previous Project"}
+              title="Previous (Left Arrow)"
+            >
+              <FaChevronLeft /> <span>{t.projects.paginationPrev || "Previous"}</span>
+            </button>
+
+            <div className="pagination-pages-list">
+              {filteredProjects.map((proj, idx) => {
+                const pageNum = idx + 1;
+                const isActive = pageNum === safePage;
+                return (
+                  <button
+                    key={proj.id}
+                    className={`pagination-num-btn ${isActive ? "active" : ""}`}
+                    onClick={() => handlePageSelect(pageNum)}
+                    aria-label={`Go to ${proj.title}`}
+                    title={proj.title}
+                  >
+                    <span className="page-number-text">{pageNum}</span>
+                    {isActive && (
+                      <motion.span
+                        layoutId="activePageDot"
+                        className="active-page-glow"
+                        transition={{ type: "spring", stiffness: 350, damping: 25 }}
+                      />
+                    )}
+                  </button>
+                );
+              })}
+            </div>
+
+            <button
+              className="pagination-nav-btn next-btn"
+              onClick={handleNextPage}
+              disabled={safePage === totalPages}
+              aria-label={t.projects.paginationNext || "Next Project"}
+              title="Next (Right Arrow)"
+            >
+              <span>{t.projects.paginationNext || "Next"}</span> <FaChevronRight />
+            </button>
+          </div>
+        </div>
+      )}
 
       {/* Interactive Video Highlight Embed Modal */}
       <AnimatePresence>
@@ -513,6 +767,39 @@ function Projects() {
                 >
                   {t.projects.modalClose}
                 </button>
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
+
+      {/* Image Lightbox Zoom Modal */}
+      <AnimatePresence>
+        {zoomImage && (
+          <div className="project-modal-backdrop" onClick={() => setZoomImage(null)}>
+            <motion.div
+              className="zoom-lightbox-modal"
+              initial={{ opacity: 0, scale: 0.92, y: 15 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.92, y: 15 }}
+              transition={{ duration: 0.25, ease: "easeOut" }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="zoom-modal-header">
+                <div className="zoom-modal-title">
+                  <h4>{zoomImage.title}</h4>
+                  <span className="zoom-modal-badge">{zoomImage.label}</span>
+                </div>
+                <button
+                  className="modal-close-btn"
+                  onClick={() => setZoomImage(null)}
+                  aria-label="Close Preview"
+                >
+                  <FaTimes />
+                </button>
+              </div>
+              <div className="zoom-modal-body">
+                <img src={zoomImage.src} alt={zoomImage.title} className="zoom-full-img" />
               </div>
             </motion.div>
           </div>

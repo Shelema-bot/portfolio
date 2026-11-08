@@ -17,6 +17,7 @@ import {
 } from "react-icons/fa";
 import { useLanguage } from "../../context/LanguageContext";
 import profilePhoto from "../../assets/input_file_0.png";
+import cvPdf from "../../assets/Shelema_Ageri_CV.pdf";
 
 export default function AIAssistant() {
   const { lang, t } = useLanguage();
@@ -240,15 +241,49 @@ export default function AIAssistant() {
       }
       const linkMatch = part.match(/\[(.*?)\]\((.*?)\)/);
       if (linkMatch) {
+        const linkText = linkMatch[1];
+        const linkHref = linkMatch[2];
+        const isAnchor = linkHref.startsWith("#");
+
+        if (isAnchor) {
+          return (
+            <button
+              key={index}
+              className="ai-chat-link ai-chat-anchor-btn"
+              onClick={() => {
+                const el = document.querySelector(linkHref);
+                if (el) {
+                  el.scrollIntoView({ behavior: "smooth" });
+                }
+              }}
+            >
+              {linkText}
+            </button>
+          );
+        }
+
+        if (linkHref.toLowerCase().includes("cv") || linkHref.toLowerCase().includes("pdf")) {
+          return (
+            <a
+              key={index}
+              href={cvPdf}
+              download="Shelema_Ageri_CV.pdf"
+              className="ai-chat-link ai-chat-cv-btn"
+            >
+              {linkText}
+            </a>
+          );
+        }
+
         return (
           <a
             key={index}
-            href={linkMatch[2]}
+            href={linkHref}
             target="_blank"
             rel="noopener noreferrer"
             className="ai-chat-link"
           >
-            {linkMatch[1]} <FaExternalLinkAlt size={10} />
+            {linkText} <FaExternalLinkAlt size={10} />
           </a>
         );
       }
@@ -267,16 +302,22 @@ export default function AIAssistant() {
             initial={{ scale: 0, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0, opacity: 0 }}
-            whileHover={{ scale: 1.08 }}
-            whileTap={{ scale: 0.94 }}
-            aria-label="Open AI Assistant"
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.92 }}
+            aria-label={t.ai.drawerTitle || "Open Shelema AI Assistant"}
           >
-            <span className="ai-btn-pulse"></span>
-            <div className="ai-btn-content">
+            <span className="ai-btn-glow-ring"></span>
+            <div className="ai-btn-inner">
               <FaRobot className="ai-bot-icon" />
-              <span className="ai-btn-label">{t.ai.buttonLabel}</span>
+              <FaMagic className="ai-sparkle-badge" />
             </div>
-            <span className="ai-status-indicator"></span>
+            <span className="ai-status-indicator" title="Online">
+              <span className="ai-status-ping"></span>
+            </span>
+            <div className="ai-btn-tooltip">
+              <span className="ai-tooltip-dot"></span>
+              <span>{t.ai.drawerTitle || "Shelema AI"}</span>
+            </div>
           </motion.button>
         )}
       </AnimatePresence>

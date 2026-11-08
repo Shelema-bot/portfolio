@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import "./Home.css";
 import { motion } from "framer-motion";
 import {
@@ -15,7 +16,53 @@ import profilePhoto from "../../assets/input_file_0.png";
 import cvPdf from "../../assets/Shelema_Ageri_CV.pdf";
 
 function Home() {
-  const { t } = useLanguage();
+  const { lang, t } = useLanguage();
+
+  const roles = t.hero.roles || [
+    "Full-Stack MERN Developer",
+    "Telegram Bot Architect",
+    "FinTech & Payment Gateway Specialist",
+    "Computer Science Specialist @ Haramaya",
+  ];
+
+  const [currentRoleIndex, setCurrentRoleIndex] = useState(0);
+  const [currentText, setCurrentText] = useState("");
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [typingSpeed, setTypingSpeed] = useState(85);
+
+  // Reset when language switches
+  useEffect(() => {
+    setCurrentRoleIndex(0);
+    setCurrentText("");
+    setIsDeleting(false);
+  }, [lang]);
+
+  // Typewriter effect cycle
+  useEffect(() => {
+    const fullRole = roles[currentRoleIndex % roles.length];
+
+    const timer = setTimeout(() => {
+      if (!isDeleting) {
+        setCurrentText(fullRole.slice(0, currentText.length + 1));
+        setTypingSpeed(75 + Math.random() * 25);
+
+        if (currentText.length + 1 >= fullRole.length) {
+          // Pause when role is completely typed
+          setTimeout(() => setIsDeleting(true), 2200);
+        }
+      } else {
+        setCurrentText(fullRole.slice(0, currentText.length - 1));
+        setTypingSpeed(40);
+
+        if (currentText.length - 1 <= 0) {
+          setIsDeleting(false);
+          setCurrentRoleIndex((prev) => (prev + 1) % roles.length);
+        }
+      }
+    }, typingSpeed);
+
+    return () => clearTimeout(timer);
+  }, [currentText, isDeleting, currentRoleIndex, roles, typingSpeed]);
 
   const handleDownloadCV = async (e) => {
     e.preventDefault();
@@ -53,7 +100,19 @@ function Home() {
 
           <h1 className="home-name">{t.hero.name}</h1>
 
-          <h2 className="home-title-role">{t.hero.role}</h2>
+          <div className="home-role-container">
+            <h2 className="home-title-role">
+              <span className="typewriter-text">{currentText || roles[0]}</span>
+              <span className="typewriter-cursor"></span>
+            </h2>
+            <span className="home-role-sub">
+              {lang === "om"
+                ? "Yuunivarsiitii Haramayaa (Waggaa 4ffaa) • Qabxii Barnootaa: >75% GPA"
+                : lang === "am"
+                ? "ሀረማያ ዩኒቨርሲቲ (4ኛ ዓመት) • የትምህርት ውጤት፡ >75% GPA"
+                : "Haramaya University (4th Year) • Academic Standing: Above 75% GPA"}
+            </span>
+          </div>
 
           <p className="home-summary">{t.hero.summary}</p>
 

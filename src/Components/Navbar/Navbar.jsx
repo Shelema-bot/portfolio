@@ -73,8 +73,8 @@ function Navbar() {
 
   const languages = [
     { code: "en", label: "English", short: "EN" },
-    { code: "om", label: "Afaan Oromoo (Afaan Dhalootaa)", short: "OM" },
-    { code: "am", label: "Amharic (አማርኛ)", short: "AM" },
+    { code: "om", label: "Afaan Oromoo", short: "OM" },
+    { code: "am", label: "አማርኛ", short: "AM" },
   ];
 
   const currentLang = languages.find((l) => l.code === lang) || languages[0];
