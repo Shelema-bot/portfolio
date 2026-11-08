@@ -1,6 +1,15 @@
 import { useState, useEffect } from "react";
 import "./Navbar.css";
-import { FaBars, FaTimes, FaFileAlt, FaSun, FaMoon, FaGlobe } from "react-icons/fa";
+import { motion, AnimatePresence } from "framer-motion";
+import {
+  FaBars,
+  FaTimes,
+  FaFileAlt,
+  FaSun,
+  FaMoon,
+  FaGlobe,
+  FaChevronDown,
+} from "react-icons/fa";
 import { useTheme } from "../../context/ThemeContext";
 import { useLanguage } from "../../context/LanguageContext";
 import profilePhoto from "../../assets/input_file_0.png";
@@ -11,6 +20,7 @@ function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
   const [langDropdownOpen, setLangDropdownOpen] = useState(false);
+  const [worksDropdownOpen, setWorksDropdownOpen] = useState(false);
 
   const { toggleTheme, isDark } = useTheme();
   const { lang, setLang, t } = useLanguage();
@@ -24,7 +34,15 @@ function Navbar() {
       }
 
       // Update active section based on scroll position
-      const sections = ["home", "about", "skills", "work", "contact"];
+      const sections = [
+        "home",
+        "about",
+        "skills",
+        "projects",
+        "services",
+        "experience",
+        "contact",
+      ];
       const scrollPosition = window.scrollY + 220;
 
       for (const section of sections) {
@@ -49,6 +67,9 @@ function Navbar() {
     const handleOutsideClick = (e) => {
       if (!e.target.closest(".lang-switcher")) {
         setLangDropdownOpen(false);
+      }
+      if (!e.target.closest(".nav-dropdown-item")) {
+        setWorksDropdownOpen(false);
       }
       if (
         !e.target.closest(".navbar-bottom-row") &&
@@ -200,17 +221,125 @@ function Navbar() {
         <nav className={`navbar-bottom-row ${menuOpen ? "mobile-active" : ""}`}>
           <div className="navbar-bottom-container">
             <ul className="nav-links">
-              {navLinks.map((link) => (
-                <li key={link.id}>
-                  <a
-                    href={link.href}
-                    className={activeSection === link.id ? "active" : ""}
-                    onClick={() => setMenuOpen(false)}
-                  >
-                    {link.name}
-                  </a>
-                </li>
-              ))}
+              <li>
+                <a
+                  href="#home"
+                  className={activeSection === "home" ? "active" : ""}
+                  onClick={() => setMenuOpen(false)}
+                >
+                  {t.nav.home}
+                </a>
+              </li>
+
+              <li>
+                <a
+                  href="#about"
+                  className={activeSection === "about" ? "active" : ""}
+                  onClick={() => setMenuOpen(false)}
+                >
+                  {t.nav.about}
+                </a>
+              </li>
+
+              <li>
+                <a
+                  href="#skills"
+                  className={activeSection === "skills" ? "active" : ""}
+                  onClick={() => setMenuOpen(false)}
+                >
+                  {t.nav.skills}
+                </a>
+              </li>
+
+              {/* Works & Projects Dropdown: Collapsed to ONE Navbar Item */}
+              <li
+                className="nav-dropdown-item"
+                onMouseEnter={() => setWorksDropdownOpen(true)}
+                onMouseLeave={() => setWorksDropdownOpen(false)}
+              >
+                <button
+                  type="button"
+                  className={`nav-dropdown-trigger-btn ${
+                    ["projects", "services", "experience"].includes(activeSection)
+                      ? "active"
+                      : ""
+                  }`}
+                  onClick={() => setWorksDropdownOpen((prev) => !prev)}
+                  aria-haspopup="true"
+                  aria-expanded={worksDropdownOpen}
+                >
+                  <span>{t.nav.work || "Works & Projects"}</span>
+                  <FaChevronDown className={`dropdown-caret ${worksDropdownOpen ? "open" : ""}`} />
+                </button>
+
+                {/* Dropdown Menu displaying the 3 distinct files/sections */}
+                <AnimatePresence>
+                  {worksDropdownOpen && (
+                    <motion.div
+                      className="nav-dropdown-menu"
+                      initial={{ opacity: 0, y: 8, scale: 0.96 }}
+                      animate={{ opacity: 1, y: 0, scale: 1 }}
+                      exit={{ opacity: 0, y: 8, scale: 0.96 }}
+                      transition={{ duration: 0.18, ease: "easeOut" }}
+                    >
+                      <a
+                        href="#projects"
+                        className={`dropdown-option ${activeSection === "projects" ? "active" : ""}`}
+                        onClick={() => {
+                          setWorksDropdownOpen(false);
+                          setMenuOpen(false);
+                        }}
+                      >
+                        <span className="dropdown-item-icon">🚀</span>
+                        <div className="dropdown-item-content">
+                          <span className="dropdown-item-title">{t.nav.projects}</span>
+                          <span className="dropdown-item-desc">Slideshow Showcase</span>
+                        </div>
+                      </a>
+
+                      <a
+                        href="#services"
+                        className={`dropdown-option ${activeSection === "services" ? "active" : ""}`}
+                        onClick={() => {
+                          setWorksDropdownOpen(false);
+                          setMenuOpen(false);
+                        }}
+                      >
+                        <span className="dropdown-item-icon">🛠️</span>
+                        <div className="dropdown-item-content">
+                          <span className="dropdown-item-title">{t.nav.services}</span>
+                          <span className="dropdown-item-desc">Web Dev, Payment API, Bots</span>
+                        </div>
+                      </a>
+
+                      <a
+                        href="#experience"
+                        className={`dropdown-option ${activeSection === "experience" ? "active" : ""}`}
+                        onClick={() => {
+                          setWorksDropdownOpen(false);
+                          setMenuOpen(false);
+                        }}
+                      >
+                        <span className="dropdown-item-icon">💼</span>
+                        <div className="dropdown-item-content">
+                          <span className="dropdown-item-title">{t.nav.experience}</span>
+                          <span className="dropdown-item-desc">Work History & Education</span>
+                        </div>
+                      </a>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </li>
+
+              <li>
+                <a
+                  href="#contact"
+                  className={activeSection === "contact" ? "active" : ""}
+                  onClick={() => setMenuOpen(false)}
+                >
+                  {t.nav.contact}
+                </a>
+              </li>
 
               <li className="mobile-cv-item">
                 <a

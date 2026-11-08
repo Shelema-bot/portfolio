@@ -33,8 +33,9 @@ function Projects({ hideHeader = false }) {
   const [activeModalProject, setActiveModalProject] = useState(null);
   const [activeVideoProject, setActiveVideoProject] = useState(null);
   const [zoomImage, setZoomImage] = useState(null);
-  const [isAutoPlay, setIsAutoPlay] = useState(false);
+  const [isAutoPlay, setIsAutoPlay] = useState(true);
   const [isHovered, setIsHovered] = useState(false);
+  const [timerProgress, setTimerProgress] = useState(0);
   const [isPlaying, setIsPlaying] = useState(true);
   const [currentStepIndex, setCurrentStepIndex] = useState(0);
 
@@ -170,64 +171,68 @@ function Projects({ hideHeader = false }) {
   const safePage = Math.min(currentPage, totalPages);
   const currentProject = filteredProjects[safePage - 1];
 
-  // Auto-play presentation timer (advances every 6.5s, pauses on hover or modal)
+  // Auto-play timer with smooth visual countdown progress
   useEffect(() => {
     if (!isAutoPlay || isHovered || activeModalProject || activeVideoProject || zoomImage) return;
 
-    const interval = setInterval(() => {
-      setDirection(1);
-      setCurrentPage((prev) => (prev >= totalPages ? 1 : prev + 1));
-    }, 6500);
+    const tickMs = 50;
+    const durationMs = 6000;
+    const increment = (tickMs / durationMs) * 100;
 
-    return () => clearInterval(interval);
+    const timer = setInterval(() => {
+      setTimerProgress((prev) => {
+        if (prev >= 100) {
+          setDirection(1);
+          setCurrentPage((curr) => (curr >= totalPages ? 1 : curr + 1));
+          return 0;
+        }
+        return prev + increment;
+      });
+    }, tickMs);
+
+    return () => clearInterval(timer);
   }, [isAutoPlay, isHovered, totalPages, activeModalProject, activeVideoProject, zoomImage]);
 
   const handleFilterChange = (tabId) => {
     setFilter(tabId);
     setCurrentPage(1);
     setDirection(0);
+    setTimerProgress(0);
   };
 
   const handlePrevPage = () => {
-    if (safePage > 1) {
-      setDirection(-1);
-      setCurrentPage((prev) => prev - 1);
-    }
+    setDirection(-1);
+    setCurrentPage((prev) => (prev <= 1 ? totalPages : prev - 1));
+    setTimerProgress(0);
   };
 
   const handleNextPage = () => {
-    if (safePage < totalPages) {
-      setDirection(1);
-      setCurrentPage((prev) => prev + 1);
-    }
+    setDirection(1);
+    setCurrentPage((prev) => (prev >= totalPages ? 1 : prev + 1));
+    setTimerProgress(0);
   };
 
   const handlePageSelect = (pageNumber) => {
     if (pageNumber !== safePage) {
       setDirection(pageNumber > safePage ? 1 : -1);
       setCurrentPage(pageNumber);
+      setTimerProgress(0);
     }
   };
 
   // Keyboard navigation support: Left / Right arrow keys
   useEffect(() => {
     const handleKeyDown = (e) => {
-      if (activeModalProject || activeVideoProject) return;
+      if (activeModalProject || activeVideoProject || zoomImage) return;
       if (e.key === "ArrowLeft") {
-        if (safePage > 1) {
-          setDirection(-1);
-          setCurrentPage((prev) => prev - 1);
-        }
+        handlePrevPage();
       } else if (e.key === "ArrowRight") {
-        if (safePage < totalPages) {
-          setDirection(1);
-          setCurrentPage((prev) => prev + 1);
-        }
+        handleNextPage();
       }
     };
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [safePage, totalPages, activeModalProject, activeVideoProject]);
+  }, [totalPages, activeModalProject, activeVideoProject, zoomImage]);
 
   const openVideoModal = (project) => {
     setActiveVideoProject(project);
@@ -264,40 +269,76 @@ function Projects({ hideHeader = false }) {
         ))}
       </div>
 
-      {/* Projects List: Single Row Showcase with Animated Slide Pagination */}
+      {/* Projects Slideshow Showcase with Interactive Side Controls */}
       <div className="projects-container">
-        <AnimatePresence mode="wait" custom={direction}>
-          {currentProject && (
-            <motion.div
-              key={currentProject.id}
-              custom={direction}
-              variants={{
-                enter: (dir) => ({
-                  x: dir > 0 ? 60 : dir < 0 ? -60 : 0,
-                  opacity: 0,
-                  scale: 0.98,
-                }),
-                center: {
-                  x: 0,
-                  opacity: 1,
-                  scale: 1,
-                  transition: { duration: 0.32, ease: "easeOut" },
-                },
-                exit: (dir) => ({
-                  x: dir > 0 ? -60 : dir < 0 ? 60 : 0,
-                  opacity: 0,
-                  scale: 0.98,
-                  transition: { duration: 0.22, ease: "easeIn" },
-                }),
-              }}
-              initial="enter"
-              animate="center"
-              exit="exit"
-              onMouseEnter={() => setIsHovered(true)}
-              onMouseLeave={() => setIsHovered(false)}
-              className="project-showcase-card glass-card featured"
+        <div
+          className="slideshow-stage"
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
+        >
+          {/* Floating Side Arrow: Previous */}
+          {totalPages > 1 && (
+            <button
+              className="slideshow-side-arrow prev-arrow"
+              onClick={handlePrevPage}
+              aria-label="Previous Project Slide"
+              title="Previous (Left Arrow)"
             >
-              {currentProject.image ? (
+              <FaChevronLeft />
+            </button>
+          )}
+
+          <div className="slideshow-track">
+            <AnimatePresence mode="wait" custom={direction}>
+              {currentProject && (
+                <motion.div
+                  key={currentProject.id}
+                  custom={direction}
+                  variants={{
+                    enter: (dir) => ({
+                      x: dir > 0 ? 80 : dir < 0 ? -80 : 0,
+                      opacity: 0,
+                      scale: 0.98,
+                    }),
+                    center: {
+                      x: 0,
+                      opacity: 1,
+                      scale: 1,
+                      transition: { duration: 0.35, ease: "easeOut" },
+                    },
+                    exit: (dir) => ({
+                      x: dir > 0 ? -80 : dir < 0 ? 80 : 0,
+                      opacity: 0,
+                      scale: 0.98,
+                      transition: { duration: 0.25, ease: "easeIn" },
+                    }),
+                  }}
+                  initial="enter"
+                  animate="center"
+                  exit="exit"
+                  drag="x"
+                  dragConstraints={{ left: 0, right: 0 }}
+                  dragElastic={0.2}
+                  onDragEnd={(e, { offset, velocity }) => {
+                    if (offset.x > 50 || velocity.x > 300) {
+                      handlePrevPage();
+                    } else if (offset.x < -50 || velocity.x < -300) {
+                      handleNextPage();
+                    }
+                  }}
+                  className="project-showcase-card glass-card featured"
+                >
+                  {/* Countdown Progress Bar */}
+                  {isAutoPlay && (
+                    <div className="slideshow-timer-bar-track">
+                      <div
+                        className={`slideshow-timer-bar-fill ${isHovered ? "paused" : ""}`}
+                        style={{ width: `${timerProgress}%` }}
+                      />
+                    </div>
+                  )}
+
+                  {currentProject.image ? (
                 <div className={`project-media ${currentProject.isTelegram ? "telegram-media-box" : ""}`}>
                   <img
                     src={currentProject.image}
@@ -466,61 +507,79 @@ export function TaskBoard({ boardId }) {
                   </button>
                 </div>
               </div>
-            </motion.div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
+
+          {/* Floating Side Arrow: Next */}
+          {totalPages > 1 && (
+            <button
+              className="slideshow-side-arrow next-arrow"
+              onClick={handleNextPage}
+              aria-label="Next Project Slide"
+              title="Next (Right Arrow)"
+            >
+              <FaChevronRight />
+            </button>
           )}
-        </AnimatePresence>
+        </div>
       </div>
 
-      {/* Projects Pagination Bar - One Row with Modern Navigation */}
+      {/* Interactive Slideshow Controls Panel */}
       {totalPages > 1 && (
-        <div className="project-pagination-wrapper">
-          <div className="pagination-info">
-            <span className="pagination-count-badge">
-              {t.projects.paginationOf || "Project"} {safePage} {t.projects.paginationOfTotal || "of"} {totalPages}
+        <div className="slideshow-controls-panel">
+          <div className="slideshow-meta-bar">
+            <span className="slideshow-counter-badge">
+              {t.projects.paginationOf || "Slide"} <strong>0{safePage}</strong> / 0{totalPages}
             </span>
-            <span className="pagination-category-pill">{currentProject.label}</span>
+
+            <span className="slideshow-category-pill">{currentProject.label}</span>
 
             {/* Auto-Play Showcase Toggle Button */}
             <button
-              className={`pagination-autoplay-toggle ${isAutoPlay ? "active" : ""}`}
-              onClick={() => setIsAutoPlay(!isAutoPlay)}
-              title={isAutoPlay ? "Pause Auto-Play" : "Start Auto-Play Presentation"}
+              className={`slideshow-autoplay-btn ${isAutoPlay ? "active" : ""}`}
+              onClick={() => {
+                setIsAutoPlay(!isAutoPlay);
+                setTimerProgress(0);
+              }}
+              title={isAutoPlay ? "Pause Auto-Play" : "Start Slideshow Auto-Play"}
               aria-label="Toggle Auto-Play"
             >
               {isAutoPlay ? <FaPause className="autoplay-icon" /> : <FaPlay className="autoplay-icon" />}
-              <span>{isAutoPlay ? "Auto-Play On" : "Auto-Play"}</span>
-              {isAutoPlay && !isHovered && <span className="autoplay-pulse-ring"></span>}
+              <span>{isAutoPlay ? (isHovered ? "Paused (Hover)" : "Auto-Play On (6s)") : "Start Slideshow"}</span>
+              {isAutoPlay && !isHovered && <span className="slideshow-pulse-ring"></span>}
             </button>
           </div>
 
-          <div className="pagination-controls">
+          <div className="slideshow-nav-row">
             <button
-              className="pagination-nav-btn prev-btn"
+              className="slideshow-nav-btn prev-btn"
               onClick={handlePrevPage}
-              disabled={safePage === 1}
               aria-label={t.projects.paginationPrev || "Previous Project"}
-              title="Previous (Left Arrow)"
+              title="Previous Slide (Left Arrow)"
             >
               <FaChevronLeft /> <span>{t.projects.paginationPrev || "Previous"}</span>
             </button>
 
-            <div className="pagination-pages-list">
+            <div className="slideshow-indicators-list">
               {filteredProjects.map((proj, idx) => {
                 const pageNum = idx + 1;
                 const isActive = pageNum === safePage;
                 return (
                   <button
                     key={proj.id}
-                    className={`pagination-num-btn ${isActive ? "active" : ""}`}
+                    className={`slideshow-dot-btn ${isActive ? "active" : ""}`}
                     onClick={() => handlePageSelect(pageNum)}
-                    aria-label={`Go to ${proj.title}`}
+                    aria-label={`Go to slide ${pageNum}: ${proj.title}`}
                     title={proj.title}
                   >
-                    <span className="page-number-text">{pageNum}</span>
+                    <span className="dot-number">0{pageNum}</span>
+                    <span className="dot-title-short">{proj.title.split(" ")[0]}</span>
                     {isActive && (
                       <motion.span
-                        layoutId="activePageDot"
-                        className="active-page-glow"
+                        layoutId="slideshowActiveDot"
+                        className="slideshow-dot-glow"
                         transition={{ type: "spring", stiffness: 350, damping: 25 }}
                       />
                     )}
@@ -530,11 +589,10 @@ export function TaskBoard({ boardId }) {
             </div>
 
             <button
-              className="pagination-nav-btn next-btn"
+              className="slideshow-nav-btn next-btn"
               onClick={handleNextPage}
-              disabled={safePage === totalPages}
               aria-label={t.projects.paginationNext || "Next Project"}
-              title="Next (Right Arrow)"
+              title="Next Slide (Right Arrow)"
             >
               <span>{t.projects.paginationNext || "Next"}</span> <FaChevronRight />
             </button>

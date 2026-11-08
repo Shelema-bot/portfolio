@@ -11,24 +11,22 @@ import {
 } from "react-icons/fa";
 import { useLanguage } from "../../context/LanguageContext";
 
-function Experience({ hideHeader = false }) {
+function Experience() {
   const [activeTab, setActiveTab] = useState("all");
   const { t } = useLanguage();
 
   return (
-    <section className={`experience ${hideHeader ? "hub-subview" : ""}`} id={hideHeader ? undefined : "experience"}>
-      {!hideHeader && (
-        <div className="section-header">
-          <div className="section-badge">
-            <span className="dot"></span>
-            <span>{t.experience.badge}</span>
-          </div>
-          <h2 className="section-title">
-            {t.experience.title} <span>{t.experience.titleSpan}</span>
-          </h2>
-          <p className="section-desc">{t.experience.subtitle}</p>
+    <section className="experience" id="experience">
+      <div className="section-header">
+        <div className="section-badge">
+          <span className="dot"></span>
+          <span>{t.experience.badge}</span>
         </div>
-      )}
+        <h2 className="section-title">
+          {t.experience.title} <span>{t.experience.titleSpan}</span>
+        </h2>
+        <p className="section-desc">{t.experience.subtitle}</p>
+      </div>
 
       {/* Filter Tabs */}
       <div className="experience-tabs">

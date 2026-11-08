@@ -4,7 +4,9 @@ import Navbar from "./Components/Navbar/Navbar";
 import Home from "./Pages/Home/Home";
 import About from "./Pages/About/About";
 import Skills from "./Pages/Skills/Skills";
-import Work from "./Pages/Work/Work";
+import Projects from "./Pages/Projects/Projects";
+import Services from "./Pages/Services/Services";
+import Experience from "./Pages/Experience/Experience";
 import Contact from "./Pages/Contact/Contact";
 import Footer from "./Components/Footer/Footer";
 import AIAssistant from "./Components/AIAssistant/AIAssistant";
@@ -21,7 +23,10 @@ function App() {
             <Home />
             <About />
             <Skills />
-            <Work />
+            <div id="work" className="work-anchor" />
+            <Projects />
+            <Services />
+            <Experience />
             <Contact />
           </main>
           <Footer />
