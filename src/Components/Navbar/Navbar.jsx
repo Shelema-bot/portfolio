@@ -169,14 +169,14 @@ function Navbar() {
                 )}
               </button>
 
-              {/* Desktop CV Download */}
+              {/* Desktop CV Download - Hidden on Mobile */}
               <a
                 href={cvPdf}
                 download="Shelema_Ageri_CV.pdf"
                 onClick={handleDownloadCV}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn btn-secondary desktop-cv-btn"
+                className="desktop-cv-btn"
               >
                 <FaFileAlt /> {t.nav.resumeBtn}
               </a>
