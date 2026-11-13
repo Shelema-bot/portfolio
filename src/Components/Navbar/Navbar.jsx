@@ -8,7 +8,6 @@ import {
   FaSun,
   FaMoon,
   FaGlobe,
-  FaChevronDown,
 } from "react-icons/fa";
 import { useTheme } from "../../context/ThemeContext";
 import { useLanguage } from "../../context/LanguageContext";
@@ -269,7 +268,6 @@ function Navbar() {
                   aria-expanded={worksDropdownOpen}
                 >
                   <span>{t.nav.work || "Works & Projects"}</span>
-                  <FaChevronDown className={`dropdown-caret ${worksDropdownOpen ? "open" : ""}`} />
                 </button>
 
                 {/* Dropdown Menu displaying the 3 distinct files/sections */}
